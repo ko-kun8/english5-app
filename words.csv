@@ -1,0 +1,677 @@
+type,english,japanese
+phrase,hello,こんにちは
+phrase,hi,やあ
+phrase,good morning,おはよう
+phrase,good afternoon,こんにちは
+phrase,good evening,こんばんは
+phrase,good night,おやすみ
+phrase,goodbye,さようなら
+phrase,see you,またね
+phrase,see you later,またあとで
+phrase,thank you,ありがとう
+phrase,thank you very much,どうもありがとうございます
+phrase,you are welcome,どういたしまして
+phrase,excuse me,すみません
+phrase,I'm sorry,ごめんなさい
+phrase,how are you?,元気ですか
+phrase,I'm fine.,元気です
+phrase,nice to meet you,はじめまして
+phrase,what is your name?,あなたの名前は何ですか
+phrase,my name is,私の名前は〜です
+phrase,how old are you?,何歳ですか
+word,I,私は
+word,you,あなたは
+word,he,彼は
+word,she,彼女は
+word,it,それは
+word,we,私たちは
+word,they,彼らは
+word,me,私を
+word,him,彼を
+word,her,彼女を
+word,us,私たちを
+word,them,彼らを
+word,my,私の
+word,your,あなたの
+word,his,彼の
+word,her,彼女の
+word,our,私たちの
+word,their,彼らの
+word,this,これ
+word,that,あれ
+word,these,これら
+word,those,あれら
+word,a,ひとつの
+word,an,ひとつの
+word,the,その
+word,
+word,be,〜である
+word,have,持っている
+word,has,持っている
+word,do,する
+word,does,する
+word,go,行く
+word,come,来る
+word,get,得る
+word,make,作る
+word,play,遊ぶ
+word,read,読む
+word,write,書く
+word,speak,話す
+word,say,言う
+word,see,見る
+word,look,見る
+word,watch,見る
+word,listen,聞く
+word,hear,聞こえる
+word,eat,食べる
+word,drink,飲む
+word,walk,歩く
+word,run,走る
+word,swim,泳ぐ
+word,sleep,眠る
+word,study,勉強する
+word,teach,教える
+word,learn,学ぶ
+word,open,開ける
+word,close,閉める
+word,help,助ける
+word,like,好き
+word,love,愛する
+word,want,ほしい
+word,need,必要とする
+word,know,知っている
+word,think,思う
+word,live,住む
+word,work,働く
+word,call,呼ぶ
+word,give,与える
+word,take,取る
+word,put,置く
+word,find,見つける
+word,buy,買う
+word,sell,売る
+word,meet,会う
+word,start,始める
+word,finish,終える
+word,yes,はい
+word,no,いいえ
+word,not,〜でない
+word,and,そして
+word,but,しかし
+word,or,または
+word,with,〜と一緒に
+word,for,〜のために
+word,to,〜へ
+word,from,〜から
+word,in,〜の中に
+word,on,〜の上に
+word,under,〜の下に
+word,by,〜のそばに
+word,at,〜で
+word,of,〜の
+word,about,〜について
+word,after,〜のあとで
+word,before,〜の前に
+word,between,〜の間に
+word,near,近くに
+word,here,ここ
+word,there,そこ
+word,where,どこ
+word,when,いつ
+word,who,だれ
+word,what,何
+word,which,どちら
+word,why,なぜ
+word,how,どのように
+word,father,父
+word,mother,母
+word,brother,兄・弟
+word,sister,姉・妹
+word,grandfather,祖父
+word,grandmother,祖母
+word,family,家族
+word,baby,赤ちゃん
+word,boy,男の子
+word,girl,女の子
+word,man,男性
+word,woman,女性
+word,friend,友達
+word,teacher,先生
+word,student,生徒
+word,class,授業
+word,classroom,教室
+word,school,学校
+word,desk,机
+word,chair,いす
+word,book,本
+word,notebook,ノート
+word,pen,ペン
+word,pencil,鉛筆
+word,eraser,消しゴム
+word,bag,かばん
+word,box,箱
+word,door,ドア
+word,window,窓
+word,computer,コンピューター
+word,apple,りんご
+word,banana,バナナ
+word,orange,オレンジ
+word,grape,ぶどう
+word,peach,もも
+word,melon,メロン
+word,lemon,レモン
+word,strawberry,いちご
+word,bread,パン
+word,rice,ご飯
+word,cake,ケーキ
+word,egg,卵
+word,milk,牛乳
+word,water,水
+word,juice,ジュース
+word,tea,お茶
+word,coffee,コーヒー
+word,fish,魚
+word,meat,肉
+word,chicken,鶏肉
+word,dog,犬
+word,cat,猫
+word,bird,鳥
+word,fish,魚
+word,rabbit,うさぎ
+word,horse,馬
+word,cow,牛
+word,pig,豚
+word,monkey,猿
+word,lion,ライオン
+word,tiger,トラ
+word,elephant,象
+word,bear,くま
+word,red,赤
+word,blue,青
+word,yellow,黄色
+word,green,緑
+word,black,黒
+word,white,白
+word,brown,茶色
+word,pink,ピンク
+word,one,1
+word,two,2
+word,three,3
+word,four,4
+word,five,5
+word,six,6
+word,seven,7
+word,eight,8
+word,nine,9
+word,ten,10
+word,Sunday,日曜日
+word,Monday,月曜日
+word,Tuesday,火曜日
+word,Wednesday,水曜日
+word,Thursday,木曜日
+word,Friday,金曜日
+word,Saturday,土曜日
+word,January,1月
+word,February,2月
+word,March,3月
+word,April,4月
+word,May,5月
+word,June,6月
+word,July,7月
+word,August,8月
+word,September,9月
+word,October,10月
+word,November,11月
+word,December,12月
+word,sunny,晴れ
+word,rainy,雨の
+word,cloudy,くもりの
+word,snowy,雪の
+word,hot,暑い
+word,cold,寒い
+word,warm,暖かい
+word,cool,涼しい
+word,morning,朝
+word,afternoon,午後
+word,evening,夕方
+word,night,夜
+word,today,今日
+word,tomorrow,明日
+word,yesterday,昨日
+word,head,頭
+word,face,顔
+word,eye,目
+word,ear,耳
+word,nose,鼻
+word,mouth,口
+word,tooth,歯
+word,neck,首
+word,shoulder,肩
+word,arm,腕
+word,hand,手
+word,finger,指
+word,leg,脚
+word,foot,足
+word,toe,足の指
+word,hair,髪
+word,body,体
+word,back,背中
+word,heart,心臓
+word,eyeglass,眼鏡
+word,shirt,シャツ
+word,T-shirt,Tシャツ
+word,coat,コート
+word,jacket,上着
+word,cap,帽子
+word,hat,帽子
+word,dress,ドレス
+word,skirt,スカート
+word,pants,ズボン
+word,shoe,靴
+word,sock,靴下
+word,park,公園
+word,library,図書館
+word,hospital,病院
+word,station,駅
+word,store,店
+word,shop,店
+word,restaurant,レストラン
+word,hotel,ホテル
+word,bank,銀行
+word,post office,郵便局
+word,city,町・市
+word,town,町
+word,country,国
+word,house,家
+word,home,家
+word,room,部屋
+word,kitchen,台所
+word,bathroom,浴室
+word,bedroom,寝室
+word,garden,庭
+word,road,道
+word,street,通り
+word,river,川
+word,lake,湖
+word,sea,海
+word,mountain,山
+word,tree,木
+word,flower,花
+word,sky,空
+word,sun,太陽
+word,moon,月
+word,star,星
+word,car,車
+word,bus,バス
+word,train,電車
+word,bike,自転車
+word,airplane,飛行機
+word,ship,船
+word,ticket,切符
+word,map,地図
+word,picture,絵・写真
+word,photo,写真
+word,clock,時計
+word,watch,腕時計
+word,phone,電話
+word,table,テーブル
+word,cup,コップ
+word,glass,グラス
+word,bottle,びん
+word,plate,皿
+word,knife,ナイフ
+word,fork,フォーク
+word,spoon,スプーン
+word,ball,ボール
+word,game,ゲーム
+word,music,音楽
+word,song,歌
+word,piano,ピアノ
+word,guitar,ギター
+word,soccer,サッカー
+word,baseball,野球
+word,tennis,テニス
+word,basketball,バスケットボール
+word,volleyball,バレーボール
+word,beautiful,美しい
+word,big,大きい
+word,small,小さい
+word,long,長い
+word,short,短い
+word,new,新しい
+word,old,古い
+word,young,若い
+word,fast,速い
+word,slow,遅い
+word,easy,やさしい
+word,difficult,難しい
+word,happy,幸せな
+word,sad,悲しい
+word,busy,忙しい
+word,free,暇な
+word,strong,強い
+word,weak,弱い
+word,clean,きれいな
+word,dirty,汚れた
+word,right,右
+word,left,左
+word,up,上へ
+word,down,下へ
+word,inside,内側
+word,outside,外側
+word,always,いつも
+word,often,よく
+word,sometimes,ときどき
+word,never,決して～ない
+phrase,a lot of,たくさんの
+phrase,be from,～の出身である
+phrase,get up,起きる
+phrase,go to bed,寝る
+phrase,go home,家へ帰る
+phrase,go to school,学校へ行く
+phrase,come from,～の出身である
+phrase,look at,～を見る
+phrase,listen to,～を聞く
+phrase,talk to,～と話す
+phrase,speak to,～と話す
+phrase,wait for,～を待つ
+phrase,write to,～に手紙を書く
+phrase,thank you for,～をありがとう
+phrase,help with,～を手伝う
+phrase,have breakfast,朝食を食べる
+phrase,have lunch,昼食を食べる
+phrase,have dinner,夕食を食べる
+phrase,take a picture,写真を撮る
+phrase,have a good time,楽しく過ごす
+phrase,see you tomorrow,また明日
+phrase,come in,入ってください
+phrase,sit down,座ってください
+phrase,stand up,立ってください
+phrase,of course,もちろん
+phrase,all right,わかりました
+phrase,good job,よくできました
+phrase,how much,いくら
+phrase,how many,いくつ
+phrase,what time,何時
+word,spring,春
+word,summer,夏
+word,autumn,秋
+word,winter,冬
+word,season,季節
+word,time,時間
+word,minute,分
+word,hour,時間
+word,o'clock,～時ちょうど
+word,today's,今日の
+word,next,次の
+word,last,最後の・この前の
+word,early,早い
+word,late,遅い
+word,minute,分
+word,second,秒
+word,weather,天気
+word,rain,雨
+word,snow,雪
+word,wind,風
+word,cloud,雲
+word,fire,火
+word,waterfall,滝
+word,island,島
+word,beach,浜辺
+word,forest,森
+word,field,野原
+word,bridge,橋
+word,zoo,動物園
+word,airport,空港
+word,supermarket,スーパー
+word,bakery,パン屋
+word,library card,図書カード
+word,bus stop,バス停
+word,traffic light,信号
+word,crosswalk,横断歩道
+word,building,建物
+word,floor,床・階
+word,wall,壁
+word,ceiling,天井
+word,bed,ベッド
+word,mirror,鏡
+word,television,テレビ
+word,refrigerator,冷蔵庫
+word,clock tower,時計台
+word,umbrella,傘
+word,key,鍵
+word,letter,手紙
+word,newspaper,新聞
+word,magazine,雑誌
+word,new,新品の
+word,same,同じ
+word,different,違う
+word,kind,親切な
+word,famous,有名な
+word,fine,元気な・すばらしい
+word,interesting,面白い
+word,fun,楽しい
+word,careful,注意深い
+word,ready,準備ができた
+word,together,一緒に
+word,again,もう一度
+word,too,～も
+word,very,とても
+word,well,上手に
+word,now,今
+word,then,その時
+word,soon,すぐに
+word,away,離れて
+word,every,すべての
+word,each,それぞれの
+word,first,最初の
+word,end,終わり
+word,question,質問
+word,answer,答え
+word,store clerk,店員
+word,customer,お客
+word,price,値段
+word,money,お金
+word,coin,硬貨
+word,ticket gate,改札口
+word,menu,メニュー
+word,breakfast,朝食
+word,lunch,昼食
+word,dinner,夕食
+word,lunch box,お弁当
+word,sandwich,サンドイッチ
+word,salad,サラダ
+word,soup,スープ
+word,ice cream,アイスクリーム
+word,cookie,クッキー
+word,chocolate,チョコレート
+word,candy,あめ
+word,sugar,砂糖
+word,salt,塩
+word,homework,宿題
+word,test,テスト
+word,questionnaire,アンケート
+word,answer sheet,解答用紙
+word,blackboard,黒板
+word,page,ページ
+word,line,行
+word,word,単語
+word,sentence,文
+word,story,物語
+word,dictionary,辞書
+word,example,例
+word,practice,練習
+word,lesson,授業
+word,holiday,休日
+word,vacation,休み
+word,birthday,誕生日
+word,party,パーティー
+word,present,プレゼント
+word,festival,お祭り
+word,picnic,ピクニック
+word,trip,旅行
+word,camp,キャンプ
+word,walk,散歩
+word,break,休憩
+word,question,質問
+word,answer,答え
+word,voice,声
+word,smile,笑顔
+word,language,言葉
+word,English,英語
+word,Japanese,日本語
+word,name,名前
+word,address,住所
+word,number,番号
+word,color,色
+word,size,大きさ
+word,thing,物
+word,people,人々
+word,child,子ども
+word,parent,親
+word,cousin,いとこ
+word,uncle,おじ
+word,aunt,おば
+word,week,週
+word,month,月
+word,year,年
+word,date,日付
+word,age,年齢
+word,birthday card,誕生日カード
+word,send,送る
+word,show,見せる
+word,use,使う
+word,carry,運ぶ
+word,bring,持ってくる
+word,leave,出発する
+word,arrive,到着する
+word,clean,掃除する
+word,wash,洗う
+word,cook,料理する
+word,cut,切る
+word,draw,描く
+word,sing,歌う
+word,dance,踊る
+word,jump,跳ぶ
+word,ride,乗る
+word,drive,運転する
+word,fly,飛ぶ
+word,climb,登る
+word,catch,つかまえる
+word,throw,投げる
+word,show,示す
+word,ask,尋ねる
+word,answer,答える
+word,remember,覚えている
+word,forget,忘れる
+word,begin,始める
+word,stop,止める
+word,wait,待つ
+word,wear,身に着ける
+word,stand,立つ
+word,sit,座る
+phrase,after school,放課後
+phrase,at home,家で
+phrase,at school,学校で
+phrase,every day,毎日
+phrase,every week,毎週
+phrase,every month,毎月
+phrase,every year,毎年
+phrase,in the morning,朝に
+phrase,in the afternoon,午後に
+phrase,in the evening,夕方に
+phrase,on Sunday,日曜日に
+phrase,next week,来週
+phrase,last week,先週
+phrase,this morning,今朝
+phrase,this afternoon,今日の午後
+phrase,this evening,今晩
+phrase,over there,あそこに
+phrase,right now,今すぐ
+phrase,for example,例えば
+phrase,a little,少し
+phrase,come here,ここへ来て
+phrase,go away,あっちへ行って
+phrase,be careful,気を付けて
+phrase,hurry up,急いで
+phrase,of all,全部で
+phrase,in front of,～の前に
+phrase,in the park,公園で
+phrase,on the desk,机の上に
+phrase,under the table,テーブルの下に
+phrase,next to,～のとなりに
+word,around,～の周りに
+word,along,～に沿って
+word,over,～の上に
+word,behind,～の後ろに
+word,without,～なしで
+word,because,なぜなら
+word,if,もし～なら
+word,than,～より
+word,also,～もまた
+word,only,ただ～だけ
+word,really,本当に
+word,usually,たいてい
+word,today,今日
+word,tonight,今夜
+word,homework book,宿題ノート
+word,science,理科
+word,math,数学
+word,art,美術
+word,music room,音楽室
+word,gym,体育館
+word,pool,プール
+word,office,事務所
+word,office worker,会社員
+word,doctor,医者
+word,nurse,看護師
+word,police officer,警察官
+word,firefighter,消防士
+word,driver,運転手
+word,cook,料理人
+word,farmer,農家
+word,singer,歌手
+word,player,選手
+word,news,ニュース
+word,email,電子メール
+word,computer game,コンピューターゲーム
+word,movie,映画
+word,television program,テレビ番組
+word,weekend,週末
+word,library book,図書館の本
+word,shopping,買い物
+word,breakfast time,朝食の時間
+word,lunchtime,昼食時間
+word,dinnertime,夕食時間
+word,school lunch,学校給食
+word,pet,ペット
+word,duck,アヒル
+word,chicken,にわとり
+word,sheep,羊
+word,goat,ヤギ
+word,mouse,ねずみ
+word,frog,カエル
+word,fish bowl,金魚鉢
+word,eggplant,なす
+word,potato,じゃがいも
+word,carrot,にんじん
+word,onion,たまねぎ
+word,tomato,トマト
+word,cabbage,キャベツ
+word,vegetable,野菜
+word,fruit,果物
+word,breakfast table,食卓
+word,living room,居間
+word,dining room,食堂
+word,stairs,階段
+word,elevator,エレベーター
+word,light,明かり
+word,paper,紙
+word,card,カード
+word,stamp,切手
+word,gift,贈り物
+word,balloon,風船
+word,luck,運
+word,hope,希望
+word,dream,夢

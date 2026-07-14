@@ -13,6 +13,41 @@ import streamlit as st
 APP_DIR = Path(__file__).parent
 CSV_FILE = APP_DIR / "words.csv"
 HISTORY_FILE = APP_DIR / "learning_history.json"
+PLAYER_DATA_FILE = APP_DIR / "player_data.json"
+
+
+# ============================================================
+# Project Atlas: プレイヤーデータの管理
+# ============================================================
+def get_default_player_data():
+    """プレイヤーデータのデフォルト値を返す。"""
+    return {
+        "level": 1,
+        "exp": 0,
+        "coin": 0,
+        "streak": 0,
+        "login_days": 0
+    }
+
+
+def load_player_data():
+    """player_data.json からプレイヤーデータを読み込む。存在しない場合は自動生成する。"""
+    if not PLAYER_DATA_FILE.exists():
+        data = get_default_player_data()
+        save_player_data(data)
+        return data
+
+    try:
+        with PLAYER_DATA_FILE.open(encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return get_default_player_data()
+
+
+def save_player_data(data):
+    """プレイヤーデータを player_data.json に保存する。"""
+    with PLAYER_DATA_FILE.open("w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=2)
 
 
 # ============================================================
@@ -169,7 +204,36 @@ st.set_page_config(
     layout="centered",
 )
 
+st.markdown("""
+<style>
 
+/* GitHubアイコン */
+#GithubIcon {
+    visibility: hidden;
+}
+
+/* Shareボタン */
+button[kind="header"] {
+    visibility: hidden;
+}
+
+/* 右上メニュー */
+#MainMenu {
+    visibility: hidden;
+}
+
+/* フッター */
+footer {
+    visibility: hidden;
+}
+
+/* ヘッダー */
+header {
+    visibility: hidden;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # ============================================================
 # かわいいデザイン（CSS）
 # ============================================================

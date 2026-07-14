@@ -1,0 +1,2661 @@
+{
+  "learned_words": [],
+  "not_learned_words": [
+    "apple"
+  ],
+  "quiz_correct": 7,
+  "quiz_total": 10,
+  "last_studied": "2026-07-12 01:55",
+  "word_stats": {
+    "a": {
+      "wrong": 1,
+      "correct": 1
+    },
+    "about": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "afternoon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "again": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "age": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "an": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "and": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "apple": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "ask": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "at": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "back": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bag": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ball": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "banana": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "be": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "beautiful": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "because": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bed": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bedroom": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "before": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "big": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "black": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "blue": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "book": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "box": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "boy": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "breakfast": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "brother": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bus": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "busy": {
+      "wrong": 1,
+      "correct": 1
+    },
+    "but": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "buy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "by": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cake": {
+      "wrong": 1,
+      "correct": 0
+    },
+    "car": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cat": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "chair": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "chicken": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "child": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "city": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "class": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "clean": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "clock": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "close": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "coffee": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "cold": {
+      "wrong": 1,
+      "correct": 1
+    },
+    "come": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "computer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cook": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cool": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "country": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "desk": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "do": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dog": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "door": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "drink": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "eat": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "egg": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "eight": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "elephant": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "English": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "evening": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "every": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "eye": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "face": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "family": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fast": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "father": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fish": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "five": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "floor": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "flower": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "foot": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "friend": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fruit": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "game": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "garden": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "girl": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "go": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "goodbye": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "grandfather": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "grandmother": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "green": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "happy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "have": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "he": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "head": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hello": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "help": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "her": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "here": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hi": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "home": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "house": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "how": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "I": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "in": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "it": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "juice": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "jump": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "key": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "kind": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "know": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "language": {
+      "wrong": 1,
+      "correct": 0
+    },
+    "last": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "learn": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "left": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "leg": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "like": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "listen": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "live": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "long": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "look": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "love": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lunch": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "make": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "man": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "math": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "me": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "meet": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "milk": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "minute": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "mother": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "mouth": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "name": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "new": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "night": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "no": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "not": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "now": {
+      "wrong": 1,
+      "correct": 0
+    },
+    "number": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "often": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "old": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "on": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "one": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "open": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "or": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "orange": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pen": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "people": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "picture": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "play": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "put": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "question": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "read": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "red": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "rice": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "right": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "room": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "run": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sad": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "school": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sea": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "see": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "she": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "short": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sing": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sit": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "six": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sleep": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "small": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "snow": {
+      "wrong": 1,
+      "correct": 0
+    },
+    "speak": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "stand": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "study": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "summer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sun": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "swim": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "table": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "take": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "teacher": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "that": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "the": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "their": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "them": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "there": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "these": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "they": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "this": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "time": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "to": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "today": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "together": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tomorrow": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "too": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tree": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "two": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "under": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "up": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "us": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "very": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "wait": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "walk": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "want": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "water": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "we": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "well": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "what": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "when": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "where": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "white": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "who": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "why": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "window": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "with": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "woman": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "work": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "write": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "year": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "yes": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "you": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "young": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "zoo": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "does": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "has": {
+      "wrong": 0,
+      "correct": 1
+    },
+    "watch": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hear": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "say": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "wash": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "think": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fine": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hot": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "warm": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ready": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "early": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "late": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "which": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "good morning": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "good afternoon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "good evening": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "good night": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "see you": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "see you later": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "thank you": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "thank you very much": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "you are welcome": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "excuse me": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "I'm sorry": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "how are you?": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "I'm fine.": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "nice to meet you": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "what is your name?": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "my name is": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "how old are you?": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "him": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "my": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "your": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "his": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "our": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "those": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "get": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "teach": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "need": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "call": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "give": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "find": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sell": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "start": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "finish": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "for": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "from": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "of": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "after": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "between": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "near": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sister": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "baby": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "student": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "classroom": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "notebook": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pencil": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "eraser": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "grape": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "peach": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "melon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lemon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "strawberry": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bread": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tea": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "meat": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bird": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "rabbit": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "horse": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cow": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pig": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "monkey": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lion": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tiger": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bear": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "yellow": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "brown": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pink": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "three": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "four": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "seven": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "nine": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ten": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Sunday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Monday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Tuesday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Wednesday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Thursday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Friday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Saturday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "January": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "February": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "March": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "April": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "May": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "June": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "July": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "August": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "September": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "October": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "November": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "December": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sunny": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "rainy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cloudy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "snowy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "morning": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "yesterday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ear": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "nose": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tooth": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "neck": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "shoulder": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "arm": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hand": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "finger": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "toe": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hair": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "body": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "heart": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "eyeglass": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "shirt": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "T-shirt": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "coat": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "jacket": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cap": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hat": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dress": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "skirt": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pants": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "shoe": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sock": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "park": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "library": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hospital": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "station": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "store": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "shop": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "restaurant": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hotel": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bank": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "post office": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "town": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "kitchen": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bathroom": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "road": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "street": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "river": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lake": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "mountain": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sky": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "moon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "star": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "train": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bike": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "airplane": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ship": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ticket": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "map": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "photo": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "phone": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cup": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "glass": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bottle": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "plate": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "knife": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fork": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "spoon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "music": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "song": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "piano": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "guitar": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "soccer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "baseball": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tennis": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "basketball": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "volleyball": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "slow": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "easy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "difficult": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "free": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "strong": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "weak": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dirty": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "down": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "inside": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "outside": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "always": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sometimes": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "never": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "a lot of": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "be from": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "get up": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "go to bed": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "go home": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "go to school": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "come from": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "look at": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "listen to": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "talk to": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "speak to": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "wait for": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "write to": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "thank you for": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "help with": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "have breakfast": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "have lunch": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "have dinner": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "take a picture": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "have a good time": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "see you tomorrow": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "come in": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sit down": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "stand up": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "of course": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "all right": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "good job": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "how much": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "how many": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "what time": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "spring": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "autumn": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "winter": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "season": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hour": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "o'clock": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "today's": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "next": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "second": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "weather": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "rain": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "wind": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cloud": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fire": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "waterfall": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "island": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "beach": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "forest": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "field": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bridge": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "airport": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "supermarket": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bakery": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "library card": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bus stop": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "traffic light": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "crosswalk": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "building": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "wall": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ceiling": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "mirror": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "television": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "refrigerator": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "clock tower": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "umbrella": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "letter": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "newspaper": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "magazine": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "same": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "different": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "famous": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "interesting": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fun": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "careful": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "then": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "soon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "away": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "each": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "first": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "end": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "answer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "store clerk": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "customer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "price": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "money": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "coin": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ticket gate": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "menu": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dinner": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lunch box": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sandwich": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "salad": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "soup": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ice cream": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cookie": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "chocolate": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "candy": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sugar": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "salt": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "homework": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "test": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "questionnaire": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "answer sheet": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "blackboard": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "page": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "line": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "word": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sentence": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "story": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dictionary": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "example": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "practice": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lesson": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "holiday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "vacation": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "birthday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "party": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "present": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "festival": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "picnic": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "trip": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "camp": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "break": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "voice": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "smile": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "Japanese": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "address": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "color": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "size": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "thing": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "parent": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cousin": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "uncle": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "aunt": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "week": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "month": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "date": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "birthday card": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "send": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "show": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "use": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "carry": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "bring": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "leave": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "arrive": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cut": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "draw": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dance": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "ride": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "drive": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fly": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "climb": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "catch": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "throw": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "remember": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "forget": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "begin": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "stop": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "wear": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "after school": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "at home": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "at school": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "every day": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "every week": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "every month": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "every year": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "in the morning": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "in the afternoon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "in the evening": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "on Sunday": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "next week": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "last week": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "this morning": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "this afternoon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "this evening": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "over there": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "right now": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "for example": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "a little": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "come here": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "go away": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "be careful": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hurry up": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "of all": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "in front of": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "in the park": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "on the desk": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "under the table": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "next to": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "around": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "along": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "over": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "behind": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "without": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "if": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "than": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "also": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "only": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "really": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "usually": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tonight": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "homework book": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "science": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "art": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "music room": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "gym": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pool": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "office": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "office worker": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "doctor": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "nurse": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "police officer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "firefighter": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "driver": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "farmer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "singer": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "player": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "news": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "email": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "computer game": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "movie": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "television program": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "weekend": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "library book": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "shopping": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "breakfast time": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "lunchtime": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dinnertime": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "school lunch": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "pet": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "duck": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "sheep": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "goat": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "mouse": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "frog": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "fish bowl": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "eggplant": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "potato": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "carrot": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "onion": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "tomato": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "cabbage": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "vegetable": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "breakfast table": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "living room": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dining room": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "stairs": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "elevator": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "light": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "paper": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "card": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "stamp": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "gift": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "balloon": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "luck": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "hope": {
+      "wrong": 0,
+      "correct": 0
+    },
+    "dream": {
+      "wrong": 0,
+      "correct": 0
+    }
+  },
+  "study_today_questions": 1,
+  "study_today_date": "2026-07-12",
+  "study_dates": [
+    "2026-07-12"
+  ],
+  "study_play_count": 4
+}

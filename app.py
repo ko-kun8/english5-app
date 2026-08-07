@@ -16,12 +16,100 @@ import base64
 import streamlit as st
 
 # ============================================================
-# ファイルの場所
+# ファイルの場所 & パス解決
 # ============================================================
 APP_DIR = Path(__file__).parent
 CSV_FILE = APP_DIR / "words.csv"
 HISTORY_FILE = APP_DIR / "learning_history.json"
 PLAYER_DATA_FILE = APP_DIR / "player_data.json"
+
+USERS_DIR = APP_DIR / "users"
+USERS_DIR.mkdir(exist_ok=True)
+
+# 既存の learning_history.json のバックアップ
+LEGACY_HISTORY_FILE = APP_DIR / "learning_history.json"
+BACKUP_HISTORY_FILE = APP_DIR / "learning_history_backup.json"
+if LEGACY_HISTORY_FILE.exists() and not BACKUP_HISTORY_FILE.exists():
+    try:
+        import shutil
+        shutil.copy2(LEGACY_HISTORY_FILE, BACKUP_HISTORY_FILE)
+    except Exception:
+        pass
+
+
+
+def sanitize_username(name: str) -> str:
+    """ユーザー名からファイルシステムで安全なIDを生成する。"""
+    cleaned = re.sub(r'[\\/:*?"<>|]+', '_', name).strip()
+    return cleaned if cleaned else "default_user"
+
+
+def get_user_dir(username: str) -> Path:
+    safe_id = sanitize_username(username)
+    user_dir = USERS_DIR / safe_id
+    user_dir.mkdir(parents=True, exist_ok=True)
+    return user_dir
+
+
+def get_user_history_file(username: str) -> Path:
+    return get_user_dir(username) / "learning_history.json"
+
+
+def get_user_player_data_file(username: str) -> Path:
+    return get_user_dir(username) / "player_data.json"
+
+
+def get_existing_users() -> list[str]:
+    """users フォルダ内にある既存のユーザー名一覧を取得する。"""
+    if not USERS_DIR.exists():
+        return []
+    users = []
+    for p in USERS_DIR.iterdir():
+        if p.is_dir():
+            # フォルダ名をユーザー名として扱う（日本語等の可能性もあるためそのまま）
+            users.append(p.name)
+    return sorted(users)
+
+
+# ============================================================
+# ユーザー管理 & 認証・切替
+# ============================================================
+if "current_user" not in st.session_state:
+    existing_users = get_existing_users()
+    if existing_users:
+        st.session_state.current_user = existing_users[0]
+    else:
+        st.session_state.current_user = None
+
+if not st.session_state.current_user:
+    st.title("📚 英検5級 単語帳 - ユーザー登録")
+    
+    existing_users = get_existing_users()
+    if existing_users:
+        st.subheader("登録済みユーザーを選択")
+        selected_user = st.selectbox("ユーザー一覧", existing_users, key="select_existing_user_init")
+        if st.button("このユーザーで開始", use_container_width=True, key="btn_start_existing_init"):
+            st.session_state.current_user = selected_user
+            st.session_state.history_loaded = False
+            st.session_state.pop("player_data", None)
+            st.rerun()
+        st.markdown("---")
+        st.subheader("または新規ユーザー登録")
+
+    st.markdown("### 名前を入力してください")
+    new_name = st.text_input("名前：", key="input_new_username_init")
+    if st.button("開始", use_container_width=True, key="btn_start_new_init"):
+        clean_name = new_name.strip()
+        if clean_name:
+            st.session_state.current_user = clean_name
+            st.session_state.history_loaded = False
+            st.session_state.pop("player_data", None)
+            st.rerun()
+        else:
+            st.warning("有効な名前を入力してください。")
+    st.stop()
+
+
 
 
 # ============================================================
@@ -146,16 +234,17 @@ def default_player_data():
 
 
 def load_player_data():
-    """player_data.json からプレイヤーデータを読み込む。存在しない場合は初期値を生成。"""
+    """プレイヤーデータを読み込む。存在しない場合は初期値を生成（必ずLv.1）。"""
     default = default_player_data()
+    username = st.session_state.get("current_user", "default_user")
+    player_file = get_user_player_data_file(username)
     
-    if not PLAYER_DATA_FILE.exists():
+    if not player_file.exists():
         return default
 
     try:
-        with PLAYER_DATA_FILE.open(encoding="utf-8") as f:
+        with player_file.open(encoding="utf-8") as f:
             data = json.load(f)
-            # 必要なキーが欠けている場合のためにデフォルトで補完
             for key, value in default.items():
                 if key not in data:
                     data[key] = value
@@ -165,7 +254,9 @@ def load_player_data():
 
 
 def save_player_data():
-    with PLAYER_DATA_FILE.open("w", encoding="utf-8") as f:
+    username = st.session_state.get("current_user", "default_user")
+    player_file = get_user_player_data_file(username)
+    with player_file.open("w", encoding="utf-8") as f:
         json.dump(st.session_state.player_data, f, ensure_ascii=False, indent=2)
 
 
@@ -248,11 +339,13 @@ def check_mission_completion():
     pass
 
 def load_history():
-    if not HISTORY_FILE.exists():
+    username = st.session_state.get("current_user", "default_user")
+    history_file = get_user_history_file(username)
+    if not history_file.exists():
         return default_history()
 
     try:
-        with HISTORY_FILE.open(encoding="utf-8") as file:
+        with history_file.open(encoding="utf-8") as file:
             data = json.load(file)
     except (json.JSONDecodeError, OSError):
         return default_history()
@@ -272,6 +365,8 @@ def load_history():
 
 
 def save_history():
+    username = st.session_state.get("current_user", "default_user")
+    history_file = get_user_history_file(username)
     history = {
         "learned_words": sorted(st.session_state.learned_words),
         "not_learned_words": sorted(st.session_state.not_learned_words),
@@ -284,7 +379,7 @@ def save_history():
         "study_dates": st.session_state.study_dates,
         "study_play_count": st.session_state.study_play_count,
     }
-    with HISTORY_FILE.open("w", encoding="utf-8") as file:
+    with history_file.open("w", encoding="utf-8") as file:
         json.dump(history, file, ensure_ascii=False, indent=2)
 
 
@@ -561,6 +656,45 @@ st.markdown(
 
 
 # ============================================================
+# ユーザー管理 & 認証・切替
+# ============================================================
+if "current_user" not in st.session_state:
+    existing_users = get_existing_users()
+    if existing_users:
+        st.session_state.current_user = existing_users[0]
+    else:
+        st.session_state.current_user = None
+
+if not st.session_state.current_user:
+    st.title("📚 英検5級 単語帳 - ユーザー登録")
+    
+    existing_users = get_existing_users()
+    if existing_users:
+        st.subheader("登録済みユーザーを選択")
+        selected_user = st.selectbox("ユーザー一覧", existing_users, key="select_existing_user_init")
+        if st.button("このユーザーで開始", use_container_width=True, key="btn_start_existing_init"):
+            st.session_state.current_user = selected_user
+            st.session_state.history_loaded = False
+            st.session_state.pop("player_data", None)
+            st.rerun()
+        st.markdown("---")
+        st.subheader("または新規ユーザー登録")
+
+    st.markdown("### 名前を入力してください")
+    new_name = st.text_input("名前：", key="input_new_username_init")
+    if st.button("開始", use_container_width=True, key="btn_start_new_init"):
+        clean_name = new_name.strip()
+        if clean_name:
+            st.session_state.current_user = clean_name
+            st.session_state.history_loaded = False
+            st.session_state.pop("player_data", None)
+            st.rerun()
+        else:
+            st.warning("有効な名前を入力してください。")
+    st.stop()
+
+
+# ============================================================
 # 単語データを読み込む
 # ============================================================
 if "words_data" not in st.session_state:
@@ -581,7 +715,7 @@ if WORDS is None:
 # ============================================================
 # セッション状態の初期化
 # ============================================================
-if "history_loaded" not in st.session_state:
+if not st.session_state.get("history_loaded", False):
     saved = load_history()
     st.session_state.learned_words = set(saved["learned_words"])
     st.session_state.not_learned_words = set(saved["not_learned_words"])
@@ -594,41 +728,7 @@ if "history_loaded" not in st.session_state:
     st.session_state.study_play_count = saved["study_play_count"]
     st.session_state.history_loaded = True
     
-    
-# ============================================================
-# Player Data
-# ============================================================
-
-def increment_mission_word():
-    """単語カードのミッションカウントを増やす。"""
-    player = st.session_state.player_data
-    if player.get("mission_word", 0) < 5:
-        player["mission_word"] = player.get("mission_word", 0) + 1
-        save_player_data()
-
-
-def increment_mission_quiz():
-    """クイズのミッションカウントを増やす。"""
-    player = st.session_state.player_data
-    if player.get("mission_quiz", 0) < 5:
-        player["mission_quiz"] = player.get("mission_quiz", 0) + 1
-        save_player_data()
-def increment_mission_word():
-    """単語カードのミッションカウントを増やす。"""
-    player = st.session_state.player_data
-    if player.get("mission_word", 0) < 5:
-        player["mission_word"] = player.get("mission_word", 0) + 1
-        check_mission_completion()
-        save_player_data()
-
-
-def increment_mission_quiz():
-    """クイズのミッションカウントを増やす。"""
-    player = st.session_state.player_data
-    if player.get("mission_quiz", 0) < 5:
-        player["mission_quiz"] = player.get("mission_quiz", 0) + 1
-        check_mission_completion()
-        save_player_data()
+# セッション変数の安全な初期化
 if "player_data" not in st.session_state:
     st.session_state.player_data = load_player_data()    
 if "elementary_mode" not in st.session_state:
@@ -674,7 +774,7 @@ if "quiz_result_summary" not in st.session_state:
 if "pending_snow" not in st.session_state:
     st.session_state.pending_snow = False
 if "pending_audio" not in st.session_state:
-    st.session_state.pending_audio = None  # "correct" or "wrong" or None
+    st.session_state.pending_audio = None
 if "praise_message" not in st.session_state:
     st.session_state.praise_message = ""
 if "study_today_questions" not in st.session_state:
@@ -685,6 +785,7 @@ if "study_dates" not in st.session_state:
     st.session_state.study_dates = []
 if "study_play_count" not in st.session_state:
     st.session_state.study_play_count = 0
+
 
 
 # ============================================================
@@ -799,6 +900,15 @@ def normalize_english_word(word: str | None) -> str | None:
 
 def sanitize_word_sets():
     """学習履歴に残っている単語を、今のデータに合わせて整える。"""
+    if "learned_words" not in st.session_state:
+        st.session_state.learned_words = set()
+    if "not_learned_words" not in st.session_state:
+        st.session_state.not_learned_words = set()
+    if "word_stats" not in st.session_state:
+        st.session_state.word_stats = {}
+    if "used_words" not in st.session_state:
+        st.session_state.used_words = []
+
     valid_english = set(WORDS.keys())
     st.session_state.learned_words = {
         normalize_english_word(word) or word for word in st.session_state.learned_words
@@ -812,6 +922,7 @@ def sanitize_word_sets():
     st.session_state.used_words = [
         word for word in st.session_state.used_words if word in valid_english
     ]
+
 
 
 def get_word_pool():
@@ -1682,10 +1793,45 @@ st.markdown(
 )
 
 # ============================================================
-# Player Status
+# Player Status & ユーザー情報
 # ============================================================
 check_badges()
 player = st.session_state.player_data
+
+# ユーザー情報カード & 切替ボタン
+user_display_name = st.session_state.get("current_user", "デフォルト")
+summary_data = get_learning_record_summary()
+learned_count = len(st.session_state.learned_words)
+not_learned_count = len(st.session_state.not_learned_words)
+total_q = summary_data["total_questions"]
+accuracy_pct = summary_data["accuracy"]
+
+st.markdown(
+    f"""
+    <div style="
+        background: #f0f8ff;
+        border: 3px solid #4a90d9;
+        border-radius: 20px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(74, 144, 217, 0.15);
+    ">
+        <div style="font-size: 1.3rem; font-weight: 800; color: #2c3e50; margin-bottom: 0.5rem;">👤 {user_display_name}</div>
+        <div style="font-size: 1.1rem; font-weight: 700; color: #e6b800; margin-bottom: 0.3rem;">⭐ Lv.{player.get('level', 1)}</div>
+        <div style="font-size: 1rem; font-weight: 600; color: #555;">📚 覚えた単語：{learned_count}語</div>
+        <div style="font-size: 1rem; font-weight: 600; color: #555;">😅 苦手単語：{not_learned_count}語</div>
+        <div style="font-size: 1rem; font-weight: 600; color: #555;">📝 学習数：{total_q}問</div>
+        <div style="font-size: 1rem; font-weight: 600; color: #555;">🎯 正答率：{accuracy_pct}%</div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+if st.button("🔄 ユーザー切替 / 変更", key="btn_switch_user_main", use_container_width=True):
+    st.session_state.current_user = None
+    st.session_state.history_loaded = False
+    st.session_state.pop("player_data", None)
+    st.rerun()
 
 player_label = "👤 プレイヤー"
 level_label = "⭐ レベル"

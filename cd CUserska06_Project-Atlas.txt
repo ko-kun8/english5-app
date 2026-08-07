@@ -1,0 +1,3 @@
+cd C:\Users\ka06_\Project-Atlas
+
+python -m streamlit run app.py

@@ -1,84 +1,163 @@
 {
   "learned_words": [
+    "I",
+    "July",
+    "March",
+    "Monday",
     "Sunday",
     "Thursday",
+    "about",
     "afternoon",
+    "airplane",
+    "apple",
     "arrive",
+    "ask",
+    "be",
+    "be careful",
     "be from",
+    "beach",
+    "bear",
+    "bedroom",
+    "bird",
+    "bottle",
+    "bridge",
+    "busy",
+    "cake",
     "carrot",
+    "cat",
+    "close",
+    "coin",
     "come from",
     "country",
+    "customer",
+    "dinnertime",
     "dress",
     "drink",
+    "driver",
     "ear",
+    "every",
+    "every month",
+    "every year",
+    "famous",
     "five",
     "flower",
     "fly",
+    "for example",
+    "forest",
+    "give",
+    "good night",
     "grandmother",
+    "happy",
+    "he",
+    "hi",
     "if",
     "in the afternoon",
+    "kitchen",
+    "library",
+    "living room",
     "lunch box",
     "meet",
+    "money",
     "month",
+    "mother",
+    "news",
+    "on",
+    "onion",
+    "only",
+    "over",
+    "party",
     "pet",
+    "questionnaire",
+    "rain",
+    "ready",
+    "remember",
     "river",
+    "school lunch",
     "shopping",
     "stop",
+    "store clerk",
+    "sugar",
+    "summer",
     "than",
+    "thank you for",
+    "thing",
+    "this",
     "those",
     "too",
+    "tooth",
     "umbrella",
+    "under the table",
     "use",
+    "wait for",
     "walk",
     "warm",
     "weak",
+    "white",
+    "word",
+    "yellow",
     "zoo"
   ],
   "not_learned_words": [
-    "apple",
+    "September",
     "around",
+    "at home",
     "between",
+    "bike",
     "birthday card",
     "black",
     "by",
     "cap",
     "chicken",
+    "cloud",
+    "cut",
     "down",
     "early",
     "easy",
     "excuse me",
+    "eye",
     "farmer",
     "fish bowl",
     "game",
     "get",
     "good evening",
     "good job",
+    "hair",
+    "heart",
     "house",
+    "in the morning",
+    "jump",
     "lake",
     "language",
     "library card",
     "listen to",
     "long",
     "lunch",
+    "mouse",
     "near",
+    "nine",
     "nose",
     "o'clock",
     "park",
     "pen",
     "phone",
+    "picnic",
     "right",
+    "salt",
+    "see you",
     "shoe",
+    "singer",
     "study",
     "thank you very much",
+    "that",
     "then",
     "ticket gate",
     "wall",
     "weather",
     "what time"
   ],
-  "quiz_correct": 40,
-  "quiz_total": 82,
-  "last_studied": "2026-07-26 00:10",
+  "quiz_correct": 107,
+  "quiz_total": 166,
+  "last_studied": "2026-08-07 23:34",
   "word_stats": {
     "a": {
       "wrong": 1,
@@ -86,7 +165,7 @@
     },
     "about": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "afternoon": {
       "wrong": 0,
@@ -110,11 +189,11 @@
     },
     "apple": {
       "wrong": 0,
-      "correct": 1
+      "correct": 2
     },
     "ask": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "at": {
       "wrong": 0,
@@ -138,7 +217,7 @@
     },
     "be": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "beautiful": {
       "wrong": 0,
@@ -154,7 +233,7 @@
     },
     "bedroom": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "before": {
       "wrong": 0,
@@ -198,7 +277,7 @@
     },
     "busy": {
       "wrong": 1,
-      "correct": 1
+      "correct": 2
     },
     "but": {
       "wrong": 0,
@@ -214,7 +293,7 @@
     },
     "cake": {
       "wrong": 1,
-      "correct": 0
+      "correct": 1
     },
     "car": {
       "wrong": 0,
@@ -222,7 +301,7 @@
     },
     "cat": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "chair": {
       "wrong": 0,
@@ -254,7 +333,7 @@
     },
     "close": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "coffee": {
       "wrong": 0,
@@ -282,7 +361,7 @@
     },
     "country": {
       "wrong": 0,
-      "correct": 1
+      "correct": 2
     },
     "desk": {
       "wrong": 0,
@@ -330,10 +409,10 @@
     },
     "every": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "eye": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "face": {
@@ -414,7 +493,7 @@
     },
     "happy": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "have": {
       "wrong": 0,
@@ -422,7 +501,7 @@
     },
     "he": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "head": {
       "wrong": 0,
@@ -446,7 +525,7 @@
     },
     "hi": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "home": {
       "wrong": 0,
@@ -462,7 +541,7 @@
     },
     "I": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "in": {
       "wrong": 0,
@@ -477,7 +556,7 @@
       "correct": 0
     },
     "jump": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "key": {
@@ -570,7 +649,7 @@
     },
     "mother": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "mouth": {
       "wrong": 0,
@@ -614,7 +693,7 @@
     },
     "on": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "one": {
       "wrong": 0,
@@ -742,7 +821,7 @@
     },
     "summer": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "sun": {
       "wrong": 0,
@@ -765,7 +844,7 @@
       "correct": 0
     },
     "that": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "the": {
@@ -794,7 +873,7 @@
     },
     "this": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "time": {
       "wrong": 0,
@@ -882,7 +961,7 @@
     },
     "white": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "who": {
       "wrong": 0,
@@ -974,7 +1053,7 @@
     },
     "ready": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "early": {
       "wrong": 1,
@@ -1002,10 +1081,10 @@
     },
     "good night": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "see you": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "see you later": {
@@ -1098,7 +1177,7 @@
     },
     "give": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "find": {
       "wrong": 0,
@@ -1202,7 +1281,7 @@
     },
     "bird": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "rabbit": {
       "wrong": 0,
@@ -1234,11 +1313,11 @@
     },
     "bear": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "yellow": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "brown": {
       "wrong": 0,
@@ -1261,7 +1340,7 @@
       "correct": 0
     },
     "nine": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "ten": {
@@ -1274,7 +1353,7 @@
     },
     "Monday": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "Tuesday": {
       "wrong": 0,
@@ -1306,7 +1385,7 @@
     },
     "March": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "April": {
       "wrong": 0,
@@ -1322,14 +1401,14 @@
     },
     "July": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "August": {
       "wrong": 0,
       "correct": 0
     },
     "September": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "October": {
@@ -1378,7 +1457,7 @@
     },
     "tooth": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "neck": {
       "wrong": 0,
@@ -1405,7 +1484,7 @@
       "correct": 0
     },
     "hair": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "body": {
@@ -1413,7 +1492,7 @@
       "correct": 0
     },
     "heart": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "eyeglass": {
@@ -1470,7 +1549,7 @@
     },
     "library": {
       "wrong": 0,
-      "correct": 0
+      "correct": 2
     },
     "hospital": {
       "wrong": 0,
@@ -1510,7 +1589,7 @@
     },
     "kitchen": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "bathroom": {
       "wrong": 0,
@@ -1553,12 +1632,12 @@
       "correct": 0
     },
     "bike": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "airplane": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "ship": {
       "wrong": 0,
@@ -1590,7 +1669,7 @@
     },
     "bottle": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "plate": {
       "wrong": 0,
@@ -1742,7 +1821,7 @@
     },
     "wait for": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "write to": {
       "wrong": 0,
@@ -1750,7 +1829,7 @@
     },
     "thank you for": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "help with": {
       "wrong": 0,
@@ -1858,14 +1937,14 @@
     },
     "rain": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "wind": {
       "wrong": 0,
       "correct": 0
     },
     "cloud": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "fire": {
@@ -1882,11 +1961,11 @@
     },
     "beach": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "forest": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "field": {
       "wrong": 0,
@@ -1894,7 +1973,7 @@
     },
     "bridge": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "airport": {
       "wrong": 0,
@@ -1954,7 +2033,7 @@
     },
     "umbrella": {
       "wrong": 0,
-      "correct": 1
+      "correct": 2
     },
     "letter": {
       "wrong": 0,
@@ -1978,7 +2057,7 @@
     },
     "famous": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "interesting": {
       "wrong": 0,
@@ -2022,11 +2101,11 @@
     },
     "store clerk": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "customer": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "price": {
       "wrong": 0,
@@ -2034,11 +2113,11 @@
     },
     "money": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "coin": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "ticket gate": {
       "wrong": 1,
@@ -2086,10 +2165,10 @@
     },
     "sugar": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "salt": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "homework": {
@@ -2102,7 +2181,7 @@
     },
     "questionnaire": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "answer sheet": {
       "wrong": 0,
@@ -2122,7 +2201,7 @@
     },
     "word": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "sentence": {
       "wrong": 0,
@@ -2162,7 +2241,7 @@
     },
     "party": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "present": {
       "wrong": 0,
@@ -2173,7 +2252,7 @@
       "correct": 0
     },
     "picnic": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "trip": {
@@ -2214,7 +2293,7 @@
     },
     "thing": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "parent": {
       "wrong": 0,
@@ -2277,7 +2356,7 @@
       "correct": 1
     },
     "cut": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "draw": {
@@ -2314,7 +2393,7 @@
     },
     "remember": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "forget": {
       "wrong": 0,
@@ -2337,7 +2416,7 @@
       "correct": 0
     },
     "at home": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "at school": {
@@ -2354,14 +2433,14 @@
     },
     "every month": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "every year": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "in the morning": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "in the afternoon": {
@@ -2406,7 +2485,7 @@
     },
     "for example": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "a little": {
       "wrong": 0,
@@ -2422,7 +2501,7 @@
     },
     "be careful": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "hurry up": {
       "wrong": 0,
@@ -2446,7 +2525,7 @@
     },
     "under the table": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "next to": {
       "wrong": 0,
@@ -2462,7 +2541,7 @@
     },
     "over": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "behind": {
       "wrong": 0,
@@ -2486,7 +2565,7 @@
     },
     "only": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "really": {
       "wrong": 0,
@@ -2550,14 +2629,14 @@
     },
     "driver": {
       "wrong": 0,
-      "correct": 0
+      "correct": 2
     },
     "farmer": {
       "wrong": 1,
       "correct": 0
     },
     "singer": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "player": {
@@ -2566,7 +2645,7 @@
     },
     "news": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "email": {
       "wrong": 0,
@@ -2606,11 +2685,11 @@
     },
     "dinnertime": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "school lunch": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "pet": {
       "wrong": 0,
@@ -2629,7 +2708,7 @@
       "correct": 0
     },
     "mouse": {
-      "wrong": 0,
+      "wrong": 1,
       "correct": 0
     },
     "frog": {
@@ -2654,7 +2733,7 @@
     },
     "onion": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "tomato": {
       "wrong": 0,
@@ -2674,7 +2753,7 @@
     },
     "living room": {
       "wrong": 0,
-      "correct": 0
+      "correct": 1
     },
     "dining room": {
       "wrong": 0,
@@ -2725,15 +2804,22 @@
       "correct": 0
     }
   },
-  "study_today_questions": 13,
-  "study_today_date": "2026-07-26",
+  "study_today_questions": 12,
+  "study_today_date": "2026-08-07",
   "study_dates": [
     "2026-07-12",
     "2026-07-19",
     "2026-07-20",
     "2026-07-23",
     "2026-07-25",
-    "2026-07-26"
+    "2026-07-26",
+    "2026-07-28",
+    "2026-07-29",
+    "2026-07-31",
+    "2026-08-01",
+    "2026-08-04",
+    "2026-08-05",
+    "2026-08-07"
   ],
-  "study_play_count": 12
+  "study_play_count": 14
 }

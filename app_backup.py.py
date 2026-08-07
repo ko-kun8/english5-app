@@ -12,7 +12,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 import requests
-import base64
 import streamlit as st
 
 # ============================================================
@@ -131,18 +130,12 @@ def default_player_data():
         "level": 1,
         "exp": 0,
         "coin": 0,
-        "login_days": 0,
-        "streak": 0,
-        "mission_word": 0,
-        "mission_quiz": 0,
-        "mission_completed": False,
-        "daily_date": "",
-        "daily_correct": 0,
-        "daily_clear": 0,
-        "daily_claimed": [False, False, False],
-        "badges": [],
-        "purchased_items": []
-    }
+    "login_days": 0,
+    "streak": 0,
+    "mission_word": 0,
+    "mission_quiz": 0,
+    "mission_completed": False
+  }
 
 
 def load_player_data():
@@ -173,7 +166,6 @@ def add_player_exp_and_coin(exp_gain: int, coin_gain: int):
     """プレイヤーにEXPとコインを加算し、レベルアップ判定を行う。"""
     player = st.session_state.player_data
     
-    old_level = player.get("level", 1)
     player["exp"] = player.get("exp", 0) + exp_gain
     player["coin"] = player.get("coin", 0) + coin_gain
     
@@ -181,71 +173,26 @@ def add_player_exp_and_coin(exp_gain: int, coin_gain: int):
     while player.get("exp", 0) >= 100:
         player["level"] = player.get("level", 1) + 1
         player["exp"] -= 100
-        player["coin"] = player.get("coin", 0) + 50 # レベルアップボーナス
         leveled_up = True
         
     if leveled_up:
-        st.session_state.level_up_pending = {
-            "old": old_level,
-            "new": player["level"]
-        }
-        
-    check_badges()
-    save_player_data()
-
-
-def check_daily_reset():
-    """日付が変わっていたらデイリーミッションをリセットする。"""
-    player = st.session_state.player_data
-    today = datetime.now().strftime("%Y-%m-%d")
-    
-    if player.get("daily_date") != today:
-        player["daily_date"] = today
-        player["daily_correct"] = 0
-        player["daily_clear"] = 0
-        player["daily_claimed"] = [False, False, False]
-        # 既存の古いミッションキーも念のためリセット
-        player["mission_word"] = 0
-        player["mission_quiz"] = 0
-        player["mission_completed"] = False
-        save_player_data()
-
-
-def update_daily_mission(is_correct: bool):
-    """デイリーミッションの進捗を更新し、達成報酬を付与する。"""
-    # まずリセットチェック
-    check_daily_reset()
-    
-    player = st.session_state.player_data
-    player["daily_clear"] += 1
-    if is_correct:
-        player["daily_correct"] += 1
-    
-    # 報酬判定
-    # 1. 5問正解 (20Coin)
-    if player["daily_correct"] >= 5 and not player["daily_claimed"][0]:
-        player["daily_claimed"][0] = True
-        player["coin"] += 20
-        st.session_state.daily_mission_claimed = "🎯 5問正解達成！ 🪙+20 Coin ゲット！"
-        
-    # 2. 10問クリア (30Coin)
-    if player["daily_clear"] >= 10 and not player["daily_claimed"][1]:
-        player["daily_claimed"][1] = True
-        player["coin"] += 30
-        st.session_state.daily_mission_claimed = "🎯 10問クリア達成！ 🪙+30 Coin ゲット！"
-
-    # 3. 20問クリア (50Coin)
-    if player["daily_clear"] >= 20 and not player["daily_claimed"][2]:
-        player["daily_claimed"][2] = True
-        player["coin"] += 50
-        st.session_state.daily_mission_claimed = "🎯 20問クリア達成！ 🪙+50 Coin ゲット！"
+        st.session_state.level_up_pending = player["level"]
         
     save_player_data()
 
 
 def check_mission_completion():
-    """(互換性のために残す) 今日のミッションが達成されたかチェックする。"""
-    pass
+    """今日のミッションが達成されたかチェックし、報酬を加算する。"""
+    player = st.session_state.player_data
+    m_word = player.get("mission_word", 0)
+    m_quiz = player.get("mission_quiz", 0)
+    
+    if m_word >= 5 and m_quiz >= 5:
+        if not player.get("mission_completed", False):
+            player["mission_completed"] = True
+            player["coin"] = player.get("coin", 0) + 30
+            st.session_state.mission_just_completed = True
+            save_player_data()
 
 def load_history():
     if not HISTORY_FILE.exists():
@@ -830,25 +777,17 @@ def get_current_word() -> str | None:
 
     # 回答済みの場合は、現在の単語を絶対に維持する
     if st.session_state.get("quiz_answered"):
-        current = normalize_english_word(st.session_state.current_word)
-        if current and not st.session_state.quiz_choices:
-            setup_quiz_choices()
-        return current
+        return normalize_english_word(st.session_state.current_word)
 
     current = normalize_english_word(st.session_state.current_word)
     
     # すでに単語が選ばれているならそれを返す（ここで pick_random_word を呼ばない）
     if current:
-        if st.session_state.app_mode == "4択クイズ" and not st.session_state.quiz_choices:
-             setup_quiz_choices()
         return current
 
-    # ま化単語がない場合のみ新しく選ぶ
+    # まだ単語がない場合のみ新しく選ぶ
     pick_random_word()
-    current = normalize_english_word(st.session_state.current_word)
-    if current and st.session_state.app_mode == "4択クイズ" and not st.session_state.quiz_choices:
-        setup_quiz_choices()
-    return current
+    return normalize_english_word(st.session_state.current_word)
 
 
 def get_word_stat(english: str) -> dict:
@@ -922,13 +861,14 @@ def get_today_key() -> str:
 
 def record_study_activity():
     """今日の学習記録を増やして、学習日一覧を更新する。"""
-    # デイリーミッションのリセットチェックもここで行う
-    check_daily_reset()
-    
     today = get_today_key()
     if st.session_state.study_today_date != today:
         st.session_state.study_today_date = today
         st.session_state.study_today_questions = 0
+        # 日付が変わったらミッションもリセット
+        st.session_state.player_data["mission_word"] = 0
+        st.session_state.player_data["mission_quiz"] = 0
+        st.session_state.player_data["mission_completed"] = False
 
     st.session_state.study_today_questions += 1
     if today not in st.session_state.study_dates:
@@ -983,157 +923,6 @@ def get_learning_record_summary() -> dict:
         "consecutive_study_days": streak,
         "play_count": int(st.session_state.study_play_count),
     }
-
-
-# ============================================================
-# ショップ機能
-# ============================================================
-def show_shop():
-    """ショップ画面を表示する。"""
-    player = st.session_state.player_data
-    if "purchased_items" not in player:
-        player["purchased_items"] = []
-
-    shop_title = "🛒 ショップ"
-    coin_label = f"Coin：{player.get('coin', 0)}"
-
-    if st.session_state.elementary_mode:
-        shop_title = to_hiragana(shop_title)
-        coin_label = to_hiragana(coin_label)
-
-    st.markdown(
-        f"""
-        <div style="
-            background: linear-gradient(135deg, #fff5f8 0%, #fff0f5 100%);
-            border: 3px solid #ffb6c1;
-            border-radius: 24px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 6px 18px rgba(255, 107, 157, 0.15);
-            text-align: center;
-        ">
-            <div style="font-size: 2rem; font-weight: 800; color: #ff6b9d; margin-bottom: 0.5rem;">{shop_title}</div>
-            <div style="font-size: 1.5rem; font-weight: 800; color: #ff9900; background: white; display: inline-block; padding: 0.4rem 1.2rem; border-radius: 20px; border: 2px dashed #ffc966;">🪙 {coin_label}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    items = [
-        {"id": "hat", "name": "🎩 帽子", "price": 100},
-        {"id": "rainbow", "name": "🌈 にじ背景", "price": 200},
-        {"id": "crown", "name": "👑 王冠", "price": 300},
-    ]
-
-    purchased = player.get("purchased_items", [])
-
-    cols = st.columns(3)
-    for idx, item in enumerate(items):
-        item_id = item["id"]
-        item_name = item["name"]
-        item_price = item["price"]
-        is_bought = item_id in purchased or item_name in purchased
-
-        display_name = to_hiragana(item_name) if st.session_state.elementary_mode else item_name
-        price_text = f"{item_price}Coin"
-
-        with cols[idx]:
-            st.markdown(
-                f"""
-                <div style="
-                    background: white;
-                    border: 3px solid {"#7dd87d" if is_bought else "#ffd1dc"};
-                    border-radius: 20px;
-                    padding: 1.2rem;
-                    text-align: center;
-                    margin-bottom: 1rem;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                ">
-                    <div style="font-size: 1.3rem; font-weight: 800; color: #333; margin-bottom: 0.5rem;">{display_name}</div>
-                    <div style="font-size: 1.1rem; font-weight: 700; color: #ff9900; margin-bottom: 0.8rem;">🪙 {price_text}</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            if is_bought:
-                bought_label = to_hiragana("購入済み") if st.session_state.elementary_mode else "購入済み"
-                st.button(bought_label, key=f"bought_{item_id}", disabled=True, use_container_width=True)
-            else:
-                buy_label = to_hiragana("購入") if st.session_state.elementary_mode else "購入"
-                if st.button(buy_label, key=f"buy_{item_id}", use_container_width=True):
-                    current_coin = player.get("coin", 0)
-                    if current_coin < item_price:
-                        st.warning("Coinが足りません")
-                    else:
-                        player["coin"] = current_coin - item_price
-                        if "purchased_items" not in player:
-                            player["purchased_items"] = []
-                        player["purchased_items"].append(item_id)
-                        save_player_data()
-                        st.success(f"{item_name} をこうにゅうしたよ！" if st.session_state.elementary_mode else f"{item_name} を購入しました！")
-                        st.rerun()
-
-
-def check_badges():
-    """バッジの獲得判定を行い、獲得したバッジがあればコインを付与し、セッション状態に保存して、プレイヤーデータをセーブする。"""
-    player = st.session_state.player_data
-    if "badges" not in player:
-        player["badges"] = []
-    
-    newly_unlocked = []
-    
-    # 1. 🥉 はじめての正解
-    if "🥉 はじめての正解" not in player["badges"]:
-        if st.session_state.get("quiz_correct", 0) >= 1:
-            player["badges"].append("🥉 はじめての正解")
-            newly_unlocked.append("🥉 はじめての正解")
-            player["coin"] = player.get("coin", 0) + 30
-            
-    # 2. 🥈 がんばりやさん
-    if "🥈 がんばりやさん" not in player["badges"]:
-        if st.session_state.get("quiz_correct", 0) >= 10:
-            player["badges"].append("🥈 がんばりやさん")
-            newly_unlocked.append("🥈 がんばりやさん")
-            player["coin"] = player.get("coin", 0) + 30
-
-    # 3. 🥇 英語マスター
-    if "🥇 英語マスター" not in player["badges"]:
-        if st.session_state.get("quiz_correct", 0) >= 100:
-            player["badges"].append("🥇 英語マスター")
-            newly_unlocked.append("🥇 英語マスター")
-            player["coin"] = player.get("coin", 0) + 30
-
-    # 4. 🔥 3日連続
-    if "🔥 3日連続" not in player["badges"]:
-        record = get_learning_record_summary()
-        if record.get("consecutive_study_days", 0) >= 3:
-            player["badges"].append("🔥 3日連続")
-            newly_unlocked.append("🔥 3日連続")
-            player["coin"] = player.get("coin", 0) + 30
-
-    # 5. 💎 PERFECT
-    if "💎 PERFECT" not in player["badges"]:
-        # 10問クイズを全問正解
-        if st.session_state.get("quiz_game_finished") and st.session_state.get("quiz_result_summary"):
-            summary = st.session_state.quiz_result_summary
-            if summary.get("correct_count", 0) == 10 and summary.get("total_questions", 0) == 10:
-                player["badges"].append("💎 PERFECT")
-                newly_unlocked.append("💎 PERFECT")
-                player["coin"] = player.get("coin", 0) + 30
-
-    # 6. ⭐ レベル5達成
-    if "⭐ レベル5達成" not in player["badges"]:
-        if player.get("level", 1) >= 5:
-            player["badges"].append("⭐ レベル5達成")
-            newly_unlocked.append("⭐ レベル5達成")
-            player["coin"] = player.get("coin", 0) + 30
-
-    if newly_unlocked:
-        if "new_badge_unlocked" not in st.session_state:
-            st.session_state.new_badge_unlocked = []
-        st.session_state.new_badge_unlocked.extend(newly_unlocked)
-        save_player_data()
 
 
 def build_quiz_result_summary(score: int, correct_count: int, total_questions: int, best_combo: int) -> dict:
@@ -1395,15 +1184,6 @@ def speak_word(word):
         st.error("通信エラーが発生しました")
 
 
-def get_base64_audio(file_path: Path):
-    """音声ファイルをBase64エンコードして返す。"""
-    if not file_path.exists():
-        return ""
-    with open(file_path, "rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-
 def build_quiz_prompt_markup(english: str, elementary_mode: bool) -> str:
     """4択クイズ画面に英単語を表示するためのHTMLを返す。"""
     prompt_label = "📝 英単語"
@@ -1443,9 +1223,7 @@ def record_quiz_answer(selected_japanese: str):
     st.session_state.quiz_total += 1
     st.session_state.quiz_question_index += 1
     record_study_activity()
-    
-    # デイリーミッションの更新
-    update_daily_mission(is_correct)
+    increment_mission_quiz()
 
     if is_correct:
         st.session_state.quiz_correct += 1
@@ -1473,7 +1251,6 @@ def record_quiz_answer(selected_japanese: str):
         mark_as_not_learned(english)
         add_player_exp_and_coin(1, 0)
 
-    check_badges()
     persist_state()
 
 
@@ -1487,7 +1264,6 @@ def go_to_next_question():
             total_questions=st.session_state.quiz_question_index,
             best_combo=st.session_state.quiz_best_combo,
         )
-        check_badges()
         persist_state()
         return
 
@@ -1508,8 +1284,23 @@ if "previous_app_mode" not in st.session_state:
     st.session_state.previous_app_mode = st.session_state.app_mode
 
 # 出題モード（通常 / 苦手復習）が切り替わった場合
-# 初期化のタイミング（1414行目以降）で実際のラジオボタンの値が同期された後にのみ検知するよう、
-# ここではなくラジオボタン定義の直後でチェックを行います。
+if st.session_state.previous_study_mode != st.session_state.study_mode:
+    st.session_state.previous_study_mode = st.session_state.study_mode
+    st.session_state.used_words = []
+    st.session_state.current_word = None
+    st.session_state.show_meaning = False
+    reset_quiz_state()
+
+# アプリのモード（単語カード / 4択クイズ）が切り替わった場合
+if st.session_state.previous_app_mode != st.session_state.app_mode:
+    st.session_state.previous_app_mode = st.session_state.app_mode
+    st.session_state.show_meaning = False
+    reset_quiz_state()
+
+# 共通出題関数から現在の単語を保証・取得する
+# pick_random_word() はこの中で必要な時だけ呼ばれる
+current_english = get_current_word()
+
 
 # ============================================================
 # 画面の表示
@@ -1527,164 +1318,65 @@ st.markdown(f'<p class="subtitle">{subtitle_text}</p>', unsafe_allow_html=True)
 # レベルアップ演出・ミッション完了通知
 # ============================================================
 if st.session_state.get("level_up_pending"):
-    pending = st.session_state.level_up_pending
-    old_lv = pending.get("old", 1)
-    new_lv = pending.get("new", 2)
-    
-    # 演出
-    st.balloons()
-    st.snow()
-    
-    # 褒め言葉ランダム
-    praise_list = [
-        "やったね！！",
-        "すごい！！",
-        "Excellent!!",
-        "Great!!",
-        "Amazing!!",
-        "よくできました！！"
-    ]
-    praise_word = random.choice(praise_list)
-    
-    # レベルアップカード表示
-    st.markdown(
-        f"""
-        <div style="
-            background: white;
-            border: 4px solid #ff6b9d;
-            border-radius: 28px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(255, 107, 157, 0.2);
-            margin: 1.5rem 0;
-        ">
-            <div style="font-size: 2.5rem; font-weight: 800; color: #ff6b9d; margin-bottom: 1rem;">🎉 LEVEL UP!!</div>
-            <div style="font-size: 1.8rem; font-weight: 700; color: #555; margin-bottom: 1rem;">Lv{old_lv} → <span style="color: #ff6b9d; font-size: 2.2rem;">Lv{new_lv}</span></div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: #4a90d9; margin-bottom: 1.5rem;">✨ {praise_word}</div>
-            <div style="
-                background: #fff8e7;
-                border: 2px dashed #ffc966;
-                border-radius: 15px;
-                padding: 0.8rem;
-                display: inline-block;
-                color: #b8860b;
-                font-size: 1.4rem;
-                font-weight: 800;
-            ">🪙 Coin +50</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    lv = st.session_state.level_up_pending
+    st.success(f"🎉 LEVEL UP!\n\nLv.{lv}になった！")
 
-# ============================================================
-# 新しいバッジ獲得演出
-# ============================================================
-if "new_badge_unlocked" in st.session_state and st.session_state.new_badge_unlocked:
-    for badge_name in st.session_state.new_badge_unlocked:
-        st.balloons()
-        st.snow()
-        st.toast(f"🏅 新しいバッジ獲得！ {badge_name} 🪙+30 Coin!", icon="🎉")
-        
-        st.markdown(
-            f"""
-            <div style="
-                background: white;
-                border: 4px solid #ffd700;
-                border-radius: 28px;
-                padding: 2rem;
-                text-align: center;
-                box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
-                margin: 1.5rem 0;
-            ">
-                <div style="font-size: 2.2rem; font-weight: 800; color: #ff9900; margin-bottom: 1rem;">🏅 新しいバッジ獲得！</div>
-                <div style="font-size: 2.5rem; font-weight: 800; color: #ff4d4d; margin-bottom: 1.2rem;">{badge_name}</div>
-                <div style="
-                    background: #fff8e7;
-                    border: 2px dashed #ffc966;
-                    border-radius: 15px;
-                    padding: 0.8rem;
-                    display: inline-block;
-                    color: #b8860b;
-                    font-size: 1.4rem;
-                    font-weight: 800;
-                ">🪙 Coin +30</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    st.session_state.new_badge_unlocked = []
-
-if st.session_state.get("daily_mission_claimed"):
-    st.toast(st.session_state.daily_mission_claimed, icon="🎉")
-    st.session_state.daily_mission_claimed = None
+if st.session_state.get("mission_just_completed"):
+    st.toast("🎯 今日のミッションをすべてクリア！ 🪙+30 Coin ゲット！", icon="🎉")
+    st.session_state.mission_just_completed = False
 
 # ============================================================
 # 今日のミッション
 # ============================================================
 player = st.session_state.player_data
-check_daily_reset() # 表示前に最新の状態に
+m_word = player.get("mission_word", 0)
+m_quiz = player.get("mission_quiz", 0)
+m_word_status = "✅ COMPLETE" if m_word >= 5 else f"{m_word} / 5"
+m_quiz_status = "✅ COMPLETE" if m_quiz >= 5 else f"{m_quiz} / 5"
 
-d_correct = player.get("daily_correct", 0)
-d_clear = player.get("daily_clear", 0)
-d_claimed = player.get("daily_claimed", [False, False, False])
+# COMPLETE 表示のロジック
+m_word_display = f'<span class="mission-complete">✅ COMPLETE</span>' if m_word >= 5 else f"{m_word} / 5"
+m_quiz_display = f'<span class="mission-complete">✅ COMPLETE</span>' if m_quiz >= 5 else f"{m_quiz} / 5"
 
-# ミッション表示用のラベル
-m1_label = "5問正解する"
-m2_label = "10問クリアする"
-m3_label = "20問クリアする"
-
-if st.session_state.elementary_mode:
-    m1_label = to_hiragana(m1_label)
-    m2_label = to_hiragana(m2_label)
-    m3_label = to_hiragana(m3_label)
-
-m1_check = "☑" if d_claimed[0] else "□"
-m2_check = "☑" if d_claimed[1] else "□"
-m3_check = "☑" if d_claimed[2] else "□"
-
-m1_status = f"{d_correct} / 5" if not d_claimed[0] else "達成！"
-m2_status = f"{d_clear} / 10" if not d_claimed[1] else "達成！"
-m3_status = f"{d_clear} / 20" if not d_claimed[2] else "達成！"
-
-if st.session_state.elementary_mode:
-    m1_status = to_hiragana(m1_status)
-    m2_status = to_hiragana(m2_status)
-    m3_status = to_hiragana(m3_status)
-
-st.markdown(
-    f"""
-    <div style="
-        background: #fff9e6;
-        border: 3px solid #ffcc00;
-        border-radius: 24px;
-        padding: 1.2rem;
-        margin-bottom: 1.2rem;
-        box-shadow: 0 6px 18px rgba(255, 204, 0, 0.2);
-    ">
-        <div style="font-size: 1.3rem; font-weight: 800; color: #e6b800; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-            🎯 今日のミッション
+# 全ミッション達成時の全体 COMPLETE 表示
+if m_word >= 5 and m_quiz >= 5:
+    st.markdown(
+        f"""
+        <div class="mission-card" style="border-color: #7dd87d; background-color: #f0fff0;">
+            <div class="mission-title" style="color: #2d8a2d;">🎯 今日のミッション <span style="margin-left: auto;">✅ COMPLETE</span></div>
+            <div class="mission-item" style="border-bottom-color: #7dd87d;">
+                <div class="mission-label">単語カード</div>
+                <div class="mission-status">{m_word_display}</div>
+            </div>
+            <div class="mission-item">
+                <div class="mission-label">4択クイズ</div>
+                <div class="mission-status">{m_quiz_display}</div>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px dashed #ffcc00; color: #555; font-weight: 700;">
-            <div>{m1_check} {m1_label}</div>
-            <div style="color: #ff9900;">+20Coin <span style="margin-left: 0.5rem; color: #888; font-size: 0.9rem;">({m1_status})</span></div>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.markdown(
+        f"""
+        <div class="mission-card">
+            <div class="mission-title">🎯 今日のミッション</div>
+            <div class="mission-item">
+                <div class="mission-label">単語カード</div>
+                <div class="mission-status">{m_word_display}</div>
+            </div>
+            <div class="mission-item">
+                <div class="mission-label">4択クイズ</div>
+                <div class="mission-status">{m_quiz_display}</div>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px dashed #ffcc00; color: #555; font-weight: 700;">
-            <div>{m2_check} {m2_label}</div>
-            <div style="color: #ff9900;">+30Coin <span style="margin-left: 0.5rem; color: #888; font-size: 0.9rem;">({m2_status})</span></div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; color: #555; font-weight: 700;">
-            <div>{m3_check} {m3_label}</div>
-            <div style="color: #ff9900;">+50Coin <span style="margin-left: 0.5rem; color: #888; font-size: 0.9rem;">({m3_status})</span></div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+        """,
+        unsafe_allow_html=True,
+    )
 
 # ============================================================
 # Player Status
 # ============================================================
-check_badges()
 player = st.session_state.player_data
 
 player_label = "👤 プレイヤー"
@@ -1706,65 +1398,11 @@ with p_col2:
 with p_col3:
     st.metric(coin_label, player.get("coin", 0))
 
-# ============================================================
-# バッジ一覧の表示
-# ============================================================
-st.subheader(to_hiragana("🏅 バッジ") if st.session_state.elementary_mode else "🏅 バッジ")
-
-badges_def = [
-    {"name": "🥉 はじめての正解", "desc": "1問正解"},
-    {"name": "🥈 がんばりやさん", "desc": "10問正解"},
-    {"name": "🥇 英語マスター", "desc": "100問正解"},
-    {"name": "🔥 3日連続", "desc": "3日連続で学習"},
-    {"name": "💎 PERFECT", "desc": "10問クイズを全問正解"},
-    {"name": "⭐ レベル5達成", "desc": "レベル5到達"}
-]
-
-obtained_badges = player.get("badges", [])
-
-badge_cols = st.columns(2)
-for idx, b in enumerate(badges_def):
-    has_badge = b["name"] in obtained_badges
-    status_icon = "✅" if has_badge else "⬜"
-    
-    desc_text = to_hiragana(b["desc"]) if st.session_state.elementary_mode else b["desc"]
-    badge_name_text = to_hiragana(b["name"]) if st.session_state.elementary_mode else b["name"]
-    
-    bg_style = "linear-gradient(135deg, #fffcf0 0%, #fff8e7 100%)" if has_badge else "#f0f0f0"
-    border_color = "#ffd700" if has_badge else "#d3d3d3"
-    text_color = "#555" if has_badge else "#888"
-    icon_color = "#ff9900" if has_badge else "#aaaaaa"
-    box_shadow = "0 6px 18px rgba(255, 215, 0, 0.2)" if has_badge else "none"
-    
-    with badge_cols[idx % 2]:
-        st.markdown(
-            f"""
-            <div style="
-                background: {bg_style};
-                border: 3px solid {border_color};
-                border-radius: 20px;
-                padding: 1rem;
-                margin-bottom: 0.8rem;
-                box-shadow: {box_shadow};
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            ">
-                <div style="text-align: left;">
-                    <div style="font-size: 1.15rem; font-weight: 800; color: {text_color};">{badge_name_text}</div>
-                    <div style="font-size: 0.85rem; color: #888888; font-weight: 500;">{desc_text}</div>
-                </div>
-                <div style="font-size: 1.4rem; font-weight: 800; color: {icon_color};">{status_icon}</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
 st.markdown("---")
 
 # モード選択
 mode_col1, mode_col2 = st.columns(2)
-app_modes = ["単語カード", "4択クイズ", "🛒 ショップ"]
+app_modes = ["単語カード", "4択クイズ"]
 study_modes = ["通常モード", "苦手復習モード"]
 if st.session_state.elementary_mode:
     app_modes = [to_hiragana(m) for m in app_modes]
@@ -1775,30 +1413,13 @@ with mode_col1:
     # 選択値を内部用の英語/漢字キーに変換
     if st.session_state.app_mode_radio in app_modes:
         idx = app_modes.index(st.session_state.app_mode_radio)
-        new_app_mode = ["単語カード", "4択クイズ", "🛒 ショップ"][idx]
-        if st.session_state.app_mode != new_app_mode:
-            st.session_state.app_mode = new_app_mode
-            st.session_state.show_meaning = False
-            reset_quiz_state()
+        st.session_state.app_mode = ["単語カード", "4択クイズ"][idx]
 
 with mode_col2:
     st.radio("出題モード", study_modes, horizontal=True, key="study_mode_radio", label_visibility="collapsed")
     if st.session_state.study_mode_radio in study_modes:
         idx = study_modes.index(st.session_state.study_mode_radio)
-        new_study_mode = ["通常モード", "苦手復習モード"][idx]
-        if st.session_state.study_mode != new_study_mode:
-            st.session_state.study_mode = new_study_mode
-            st.session_state.used_words = []
-            st.session_state.current_word = None
-            st.session_state.show_meaning = False
-            reset_quiz_state()
-
-# 共通出題関数から現在の単語を保証・取得する
-# モードが確定した後に呼び出すことで、初回判定時の不整合を防ぐ
-current_english = get_current_word()
-
-def fmt_rec(text):
-    return to_hiragana(text) if st.session_state.elementary_mode else text
+        st.session_state.study_mode = ["通常モード", "苦手復習モード"][idx]
 
 # 小学生モードON/OFF追加
 elem_label = "🎒 小学生モード（ひらがな表示）"
@@ -1808,20 +1429,23 @@ st.checkbox(elem_label, key="elementary_mode")
 
 record_summary = get_learning_record_summary()
 
+def fmt_rec(text):
+    return to_hiragana(text) if st.session_state.elementary_mode else text
+
 st.markdown(
     f"""
     <div class="record-card">
-        <div class="record-title">📈 学習記録</div>
+        <div class="record-title">{fmt_rec('📈 学習記録')}</div>
         <div class="record-grid">
-            <div class="record-item">今日解いた問題数<strong>{record_summary['today_questions']}問</strong></div>
-            <div class="record-item">総問題数<strong>{record_summary['total_questions']}問</strong></div>
-            <div class="record-item">正解数<strong>{record_summary['correct']}問</strong></div>
-            <div class="record-item">不正解数<strong>{record_summary['wrong']}問</strong></div>
-            <div class="record-item">正解率<strong>{record_summary['accuracy']}%</strong></div>
-            <div class="record-item">最高コンボ<strong>{record_summary['best_combo']}連続</strong></div>
-            <div class="record-item">総学習日数<strong>{record_summary['total_study_days']}日</strong></div>
-            <div class="record-item">連続学習日数<strong>{record_summary['consecutive_study_days']}日</strong></div>
-            <div class="record-item">総プレイ回数<strong>{record_summary['play_count']}回</strong></div>
+            <div class="record-item">{fmt_rec('今日解いた問題数')}<strong>{record_summary['today_questions']}{fmt_rec('問')}</strong></div>
+            <div class="record-item">{fmt_rec('総問題数')}<strong>{record_summary['total_questions']}{fmt_rec('問')}</strong></div>
+            <div class="record-item">{fmt_rec('正解数')}<strong>{record_summary['correct']}{fmt_rec('問')}</strong></div>
+            <div class="record-item">{fmt_rec('不正解数')}<strong>{record_summary['wrong']}{fmt_rec('問')}</strong></div>
+            <div class="record-item">{fmt_rec('正解率')}<strong>{record_summary['accuracy']}%</strong></div>
+            <div class="record-item">{fmt_rec('最高コンボ')}<strong>{record_summary['best_combo']}{fmt_rec('連続')}</strong></div>
+            <div class="record-item">{fmt_rec('総学習日数')}<strong>{record_summary['total_study_days']}{fmt_rec('日')}</strong></div>
+            <div class="record-item">{fmt_rec('連続学習日数')}<strong>{record_summary['consecutive_study_days']}{fmt_rec('日')}</strong></div>
+            <div class="record-item">{fmt_rec('総プレイ回数')}<strong>{record_summary['play_count']}{fmt_rec('回')}</strong></div>
         </div>
     </div>
     """,
@@ -1892,9 +1516,7 @@ else:
             unsafe_allow_html=True,
         )
 
-    if st.session_state.app_mode == "🛒 ショップ":
-        show_shop()
-    elif current_english is None:
+    if current_english is None:
         st.warning("出題できる単語がありません。words.csv を確認してください。")
     elif st.session_state.app_mode == "単語カード":
         current_label = get_display_label(current_english)
@@ -1950,8 +1572,7 @@ else:
                 if not st.session_state.show_meaning:
                     add_player_exp_and_coin(2, 0)
                 st.session_state.show_meaning = True
-                # 単語カードを「クリア」したとみなしてミッション更新（正解ではないが回答扱い）
-                update_daily_mission(is_correct=False)
+                increment_mission_word()
                 st.rerun()
         with col3:
             if st.button(next_btn_label, use_container_width=True):
@@ -2032,56 +1653,130 @@ else:
 
             st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
 
-            if not st.session_state.quiz_answered:
-                if len(st.session_state.quiz_choices) < 4:
-                    warning_msg = "4択クイズには最低5語以上の単語が必要です。"
-                    if st.session_state.elementary_mode:
-                        warning_msg = to_hiragana(warning_msg)
-                    st.warning(warning_msg)
-                else:
-                    choice_cols = st.columns(2)
-                    for index, choice in enumerate(st.session_state.quiz_choices):
-                        with choice_cols[index % 2]:
-                            display_choice = format_elementary_text(choice) if st.session_state.elementary_mode else choice
-                            btn_key = f"real_btn_{current_english}_{index}_{choice}"
+            if len(st.session_state.quiz_choices) < 4:
+                warning_msg = "4択クイズには最低5語以上の単語が必要です。"
+                if st.session_state.elementary_mode:
+                    warning_msg = to_hiragana(warning_msg)
+                st.warning(warning_msg)
+            else:
+                choice_cols = st.columns(2)
+                for index, choice in enumerate(st.session_state.quiz_choices):
+                    with choice_cols[index % 2]:
+                        display_choice = format_elementary_text(choice) if st.session_state.elementary_mode else choice
+                        
+                        # ボタンクリック時にJSで音を鳴らすための仕掛け
+                        correct_japanese = english_to_japanese(current_english)
+                        is_correct_choice = (choice == correct_japanese)
+                        audio_type_to_play = "correct" if is_correct_choice else "wrong"
+                        
+                        # ユニークなIDを生成
+                        btn_key = f"real_btn_{current_english}_{index}_{choice}"
 
-                            # 本物のStreamlitボタンのみを表示する（トリッキーなHTML/JSボタンハックは完全撤廃）
-                            if st.button(
-                                display_choice,
-                                key=btn_key,
-                                use_container_width=True,
-                                disabled=st.session_state.quiz_answered,
-                            ):
-                                record_quiz_answer(choice)
-                                st.rerun()
+                        # HTML/JSで音を鳴らしてからStreamlitのボタンをクリックさせる
+                        # Streamlitボタンの見た目を完全に模倣したHTMLボタンを作成
+                        st.markdown(
+                            f"""
+                            <div id="wrapper_{index}">
+                                <button id="custom_btn_{index}" 
+                                    style="
+                                        width: 100%; 
+                                        height: 5.5rem; 
+                                        font-size: 1.5rem; 
+                                        font-weight: 800; 
+                                        border-radius: 28px; 
+                                        border: 3px solid transparent; 
+                                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+                                        background-color: white; 
+                                        color: rgb(49, 51, 63); 
+                                        cursor: pointer;
+                                        transition: transform 0.15s ease;
+                                        margin-bottom: 1rem;
+                                    "
+                                    onmouseover="this.style.transform='scale(1.03)'"
+                                    onmouseout="this.style.transform='scale(1)'"
+                                    onclick="
+                                        (async () => {{
+                                            try {{
+                                                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                                                const audioCtx = new AudioContext();
+                                                if (audioCtx.state === 'suspended') await audioCtx.resume();
+                                                
+                                                if ('{audio_type_to_play}' === 'correct') {{
+                                                    const osc1 = audioCtx.createOscillator();
+                                                    const gain1 = audioCtx.createGain();
+                                                    osc1.type = 'sine';
+                                                    osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                                                    gain1.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                                                    gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                                                    osc1.connect(gain1); gain1.connect(audioCtx.destination);
+                                                    osc1.start(); osc1.stop(audioCtx.currentTime + 0.15);
+                                                    
+                                                    setTimeout(() => {{
+                                                        const osc2 = audioCtx.createOscillator();
+                                                        const gain2 = audioCtx.createGain();
+                                                        osc2.type = 'sine';
+                                                        osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime);
+                                                        gain2.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                                                        gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                                                        osc2.connect(gain2); gain2.connect(audioCtx.destination);
+                                                        osc2.start(); osc2.stop(audioCtx.currentTime + 0.25);
+                                                    }}, 80);
+                                                }} else {{
+                                                    const t = audioCtx.currentTime;
+                                                    const osc1 = audioCtx.createOscillator();
+                                                    const osc2 = audioCtx.createOscillator();
+                                                    const gainNode = audioCtx.createGain();
+                                                    osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(150, t);
+                                                    osc1.frequency.linearRampToValueAtTime(100, t + 0.3);
+                                                    osc2.type = 'sawtooth'; osc2.frequency.setValueAtTime(146, t);
+                                                    osc2.frequency.linearRampToValueAtTime(96, t + 0.3);
+                                                    gainNode.gain.setValueAtTime(0.12, t);
+                                                    gainNode.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
+                                                    osc1.connect(gainNode); osc2.connect(gainNode);
+                                                    gainNode.connect(audioCtx.destination);
+                                                    osc1.start(); osc2.start();
+                                                    osc1.stop(t + 0.3); osc2.stop(t + 0.3);
+                                                }}
+                                            }} catch (e) {{ console.error(e); }}
+                                            
+                                            // 本物のStreamlitボタンをクリック
+                                            // 少し遅延させて音を先に出す
+                                            setTimeout(() => {{
+                                                const buttons = window.parent.document.querySelectorAll('button');
+                                                for (const btn of buttons) {{
+                                                    if (btn.innerText.trim() === '{display_choice}') {{
+                                                        btn.click();
+                                                        break;
+                                                    }}
+                                                }}
+                                            }}, 150);
+                                        }})();
+                                    "
+                                >
+                                    {display_choice}
+                                </button>
+                            </div>
+                            <style>
+                                /* 本物のStreamlitボタンは物理的に存在させるが、非表示にする */
+                                div[data-testid="stButton"]:has(button[aria-label="{display_choice}"]) {{
+                                    display: none;
+                                }}
+                            </style>
+                            """,
+                            unsafe_allow_html=True
+                        )
+
+                        # 本物のボタン（ロジック用）
+                        if st.button(
+                            display_choice,
+                            key=btn_key,
+                            use_container_width=True,
+                            disabled=st.session_state.quiz_answered,
+                        ):
+                            record_quiz_answer(choice)
+                            st.rerun()
 
             if st.session_state.quiz_answered:
-                # 効果音の再生
-                if st.session_state.get("pending_audio"):
-                    audio_type = st.session_state.pending_audio
-                    
-                    # 音声ファイルのBase64取得
-                    audio_file = APP_DIR / "assets" / ("correct.mp3" if audio_type == "correct" else "wrong.mp3")
-                    audio_base64 = get_base64_audio(audio_file)
-                    
-                    if audio_base64:
-                        sound_html = f"""
-                        <script>
-                        (() => {{
-                            const currentWord = "{current_english}";
-                            const sessionKey = "sound_played_" + currentWord;
-                            
-                            if (!sessionStorage.getItem(sessionKey)) {{
-                                sessionStorage.setItem(sessionKey, "true");
-                                
-                                const audio = new Audio("data:audio/mp3;base64,{audio_base64}");
-                                audio.play().catch(e => console.error("Audio play failed:", e));
-                            }}
-                        }})();
-                        </script>
-                        """
-                        st.components.v1.html(sound_html, height=0, width=0)
-
                 correct_answer = english_to_japanese(current_english)
                 # 小学生モードに関わらず「漢字（ひらがな）」形式を強制する (force=True)
                 display_meaning = format_elementary_text(correct_answer, force=True)

@@ -22,6 +22,7 @@ APP_DIR = Path(__file__).parent
 CSV_FILE = APP_DIR / "words.csv"
 HISTORY_FILE = APP_DIR / "learning_history.json"
 PLAYER_DATA_FILE = APP_DIR / "player_data.json"
+LAST_USER_FILE = APP_DIR / "last_user.json"
 
 USERS_DIR = APP_DIR / "users"
 USERS_DIR.mkdir(exist_ok=True)
@@ -38,76 +39,374 @@ if LEGACY_HISTORY_FILE.exists() and not BACKUP_HISTORY_FILE.exists():
 
 
 
+import uuid
+
+def migrate_old_users():
+    """旧形式（ユーザー名フォルダ）のデータを新形式（UUID形式）へ安全に移行する。
+    1つの旧フォルダに対してマイグレーションは1度だけ実行し、再生成を完全に防止する。
+    """
+    if not USERS_DIR.exists():
+        return
+
+    # まず、既存のUUIDフォルダとその表示名のマップを作成
+    existing_uuid_names = {}
+    for p in USERS_DIR.iterdir():
+        if p.is_dir():
+            name = p.name
+            try:
+                uuid.UUID(name)
+                # UUID フォルダの場合、user_data.json を読む
+                ud_file = p / "user_data.json"
+                if ud_file.exists():
+                    with ud_file.open(encoding="utf-8") as f:
+                        data = json.load(f)
+                        dname = data.get("display_name")
+                        if dname:
+                            existing_uuid_names[dname] = name
+            except ValueError:
+                pass
+
+    for p in USERS_DIR.iterdir():
+        if p.is_dir():
+            name = p.name
+            is_uuid = False
+            try:
+                uuid.UUID(name)
+                is_uuid = True
+            except ValueError:
+                is_uuid = False
+            
+            # 非UUID形式（旧ユーザー名フォルダ）の場合
+            if not is_uuid:
+                migrated_flag = p / ".migrated"
+                # すでにマイグレーション完了マークがある場合は完全にスキップ
+                if migrated_flag.exists():
+                    continue
+
+                # 旧フォルダ内に user_data.json または既存情報があるか確認
+                target_user_id = None
+                user_data_file = p / "user_data.json"
+                if user_data_file.exists():
+                    try:
+                        with user_data_file.open(encoding="utf-8") as f:
+                            data = json.load(f)
+                            target_user_id = data.get("user_id")
+                    except Exception:
+                        pass
+
+                # 既存のUUIDフォルダで同じ表示名のものがあればそれを使用（新規発行しない）
+                if not target_user_id and name in existing_uuid_names:
+                    target_user_id = existing_uuid_names[name]
+
+                # それでもなければ新しいUUIDを一度だけ生成
+                if not target_user_id:
+                    target_user_id = str(uuid.uuid4())
+
+                new_dir = USERS_DIR / target_user_id
+                new_dir.mkdir(parents=True, exist_ok=True)
+                
+                # 新UUIDフォルダに user_data.json を保存
+                new_user_data_file = new_dir / "user_data.json"
+                if not new_user_data_file.exists():
+                    user_data = {
+                        "user_id": target_user_id,
+                        "display_name": name
+                    }
+                    with new_user_data_file.open("w", encoding="utf-8") as f:
+                        json.dump(user_data, f, ensure_ascii=False, indent=2)
+                        
+                # 旧フォルダから学習履歴とプレイヤーデータをコピー
+                for fname in ["learning_history.json", "player_data.json"]:
+                    old_f = p / fname
+                    new_f = new_dir / fname
+                    if old_f.exists() and not new_f.exists():
+                        try:
+                            import shutil
+                            shutil.copy2(old_f, new_f)
+                        except Exception:
+                            pass
+
+                # 旧フォルダ内に .migrated フラグファイルおよび user_data.json を作成して次回以降の自動生成を阻止
+                try:
+                    with migrated_flag.open("w", encoding="utf-8") as f:
+                        f.write(target_user_id)
+                    if not user_data_file.exists():
+                        with user_data_file.open("w", encoding="utf-8") as f:
+                            json.dump({"user_id": target_user_id, "display_name": name}, f, ensure_ascii=False, indent=2)
+                except Exception:
+                    pass
+
+
+
+
+
+# アプリ起動時にマイグレーションを実行
+migrate_old_users()
+
+
 def sanitize_username(name: str) -> str:
-    """ユーザー名からファイルシステムで安全なIDを生成する。"""
+    """表示名からファイルシステムで安全な文字列を生成する。"""
     cleaned = re.sub(r'[\\/:*?"<>|]+', '_', name).strip()
     return cleaned if cleaned else "default_user"
 
 
-def get_user_dir(username: str) -> Path:
-    safe_id = sanitize_username(username)
+def get_user_dir(user_id: str | None) -> Path:
+    safe_id = user_id if user_id else "default_user"
     user_dir = USERS_DIR / safe_id
     user_dir.mkdir(parents=True, exist_ok=True)
     return user_dir
 
 
-def get_user_history_file(username: str) -> Path:
-    return get_user_dir(username) / "learning_history.json"
+
+def get_user_history_file(user_id: str) -> Path:
+    return get_user_dir(user_id) / "learning_history.json"
 
 
-def get_user_player_data_file(username: str) -> Path:
-    return get_user_dir(username) / "player_data.json"
+def get_user_player_data_file(user_id: str) -> Path:
+    return get_user_dir(user_id) / "player_data.json"
 
 
-def get_existing_users() -> list[str]:
-    """users フォルダ内にある既存のユーザー名一覧を取得する。"""
+def get_user_data_file(user_id: str) -> Path:
+    return get_user_dir(user_id) / "user_data.json"
+
+
+def get_existing_users() -> list[dict]:
+    """users フォルダ内にある既存のユーザー情報一覧（user_id, display_name）を取得する。
+    同じ user_id が重複してリストアップされないよう一意にユニーク化する。
+    """
     if not USERS_DIR.exists():
         return []
-    users = []
+    users_map = {}
     for p in USERS_DIR.iterdir():
         if p.is_dir():
-            # フォルダ名をユーザー名として扱う（日本語等の可能性もあるためそのまま）
-            users.append(p.name)
-    return sorted(users)
+            data = load_user_profile(p.name)
+            if data and data.get("user_id") and "display_name" in data:
+                uid = data["user_id"]
+                if uid not in users_map:
+                    users_map[uid] = data
+            else:
+                # 万が一 user_data.json がないフォルダの場合
+                uid = p.name
+                if uid not in users_map:
+                    users_map[uid] = {"user_id": uid, "display_name": uid}
+                    
+    # display_name または user_id でソートしてリスト化
+    return sorted(list(users_map.values()), key=lambda x: x.get("display_name", x.get("user_id", "")))
 
 
-# ============================================================
-# ユーザー管理 & 認証・切替
-# ============================================================
-if "current_user" not in st.session_state:
-    existing_users = get_existing_users()
-    if existing_users:
-        st.session_state.current_user = existing_users[0]
-    else:
-        st.session_state.current_user = None
 
-if not st.session_state.current_user:
-    st.title("📚 英検5級 単語帳 - ユーザー登録")
+def get_display_name(user_id: str) -> str:
+    """user_id から表示名を取得する。"""
+    if not user_id:
+        return "ゲスト"
+    data = load_user_profile(user_id)
+    if data and "display_name" in data:
+        return data["display_name"]
+    return user_id
+
+
+def load_user_profile(user_id: str) -> dict | None:
+    """ユーザープロファイル（user_id, display_name等）を読み込む。"""
+    if not user_id:
+        return None
+    user_data_file = get_user_data_file(user_id)
+    if user_data_file.exists():
+        try:
+            with user_data_file.open(encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return None
+
+
+def save_user_profile(user_id: str, profile_data: dict) -> None:
+    """ユーザープロファイルを保存する。"""
+    user_data_file = get_user_data_file(user_id)
+    with user_data_file.open("w", encoding="utf-8") as f:
+        json.dump(profile_data, f, ensure_ascii=False, indent=2)
+
+
+def create_user_profile(user_id: str, display_name: str) -> dict:
+    """新規ユーザーのプロファイルおよび初期データを生成・保存する（UI分離・クラウド移行容易化）。"""
+    profile_data = {
+        "user_id": user_id,
+        "display_name": display_name,
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    save_user_profile(user_id, profile_data)
     
-    existing_users = get_existing_users()
-    if existing_users:
-        st.subheader("登録済みユーザーを選択")
-        selected_user = st.selectbox("ユーザー一覧", existing_users, key="select_existing_user_init")
-        if st.button("このユーザーで開始", use_container_width=True, key="btn_start_existing_init"):
-            st.session_state.current_user = selected_user
-            st.session_state.history_loaded = False
-            st.session_state.pop("player_data", None)
-            st.rerun()
-        st.markdown("---")
-        st.subheader("または新規ユーザー登録")
+    # 初期プレイヤーデータと初期学習履歴も作成して保存
+    init_player = default_player_data()
+    save_player_data(user_id=user_id, player_data=init_player)
+    
+    init_history = default_history()
+    save_history(user_id=user_id, history_data=init_history)
+    
+    return profile_data
 
-    st.markdown("### 名前を入力してください")
-    new_name = st.text_input("名前：", key="input_new_username_init")
-    if st.button("開始", use_container_width=True, key="btn_start_new_init"):
-        clean_name = new_name.strip()
-        if clean_name:
-            st.session_state.current_user = clean_name
-            st.session_state.history_loaded = False
-            st.session_state.pop("player_data", None)
-            st.rerun()
+
+def delete_user_data(user_id: str):
+    """指定されたユーザーのUUIDフォルダを削除し、バックアップを作成する。"""
+    # 1. バックアップ
+    backup_dir = APP_DIR / "users_backup" / datetime.now().strftime("%Y%m%d")
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    
+    source = USERS_DIR / user_id
+    if source.exists():
+        destination = backup_dir / user_id
+        import shutil
+        shutil.copytree(source, destination)
+        
+        # 2. ユーザーフォルダ削除
+        shutil.rmtree(source)
+    
+    # 3. last_user.json の解除
+    if LAST_USER_FILE.exists():
+        try:
+            with open(LAST_USER_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if data.get("last_user_id") == user_id:
+                LAST_USER_FILE.unlink()
+        except Exception:
+            pass
+
+
+
+# ============================================================
+# ユーザー管理 & 切替ロジック
+# ============================================================
+def reset_user_session():
+    """ユーザー切り替え時に旧ユーザーのセッションデータを完全にクリアする。"""
+    keys_to_remove = [
+        "history_loaded", "player_data", "learned_words", "not_learned_words",
+        "quiz_correct", "quiz_total", "word_stats", "study_today_questions",
+        "study_today_date", "study_dates", "study_play_count", "current_word",
+        "quiz_choices", "quiz_answered", "quiz_was_correct", "quiz_selected",
+        "used_words", "level_up_pending", "daily_mission_claimed", "praise_message",
+        "pending_balloons", "pending_snow", "pending_audio"
+    ]
+    for key in keys_to_remove:
+        st.session_state.pop(key, None)
+
+
+def load_last_user_id() -> str | None:
+    """端末側に保存された最後に使用したユーザーUUIDを読み込む。"""
+    try:
+        if LAST_USER_FILE.exists():
+            with open(LAST_USER_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                uid = data.get("last_user_id")
+                if uid and isinstance(uid, str):
+                    if (USERS_DIR / uid / "user_data.json").exists():
+                        return uid
+    except Exception:
+        pass
+    return None
+
+
+def save_last_user_id(user_id: str | None) -> None:
+    """端末側に最後に使用したユーザーUUIDを保存する（None の場合は保存ファイルを削除）。"""
+    try:
+        if user_id:
+            with open(LAST_USER_FILE, "w", encoding="utf-8") as f:
+                json.dump({"last_user_id": user_id}, f, ensure_ascii=False, indent=2)
         else:
-            st.warning("有効な名前を入力してください。")
+            if LAST_USER_FILE.exists():
+                LAST_USER_FILE.unlink(missing_ok=True)
+    except Exception:
+        pass
+
+
+def set_active_user(user_id: str | None):
+    """アクティブなユーザー（UUID）をセットし、セッションをクリアして再ロードの準備をする。"""
+    reset_user_session()
+    st.session_state.current_user_id = user_id
+    st.session_state.current_user = user_id  # 互換性維持
+    if user_id:
+        save_last_user_id(user_id)
+
+
+if "current_user_id" not in st.session_state:
+    # 端末側に保存された前回のユーザーUUIDを復元
+    last_id = load_last_user_id()
+    if last_id:
+        st.session_state.current_user_id = last_id
+    elif "current_user" in st.session_state and st.session_state.current_user:
+        st.session_state.current_user_id = st.session_state.current_user
+    else:
+        st.session_state.current_user_id = None
+
+if "current_user" not in st.session_state:
+    st.session_state.current_user = st.session_state.current_user_id
+
+if "show_new_user_form" not in st.session_state:
+    st.session_state.show_new_user_form = False
+
+if not st.session_state.current_user_id:
+    st.title("🎉 だれが勉強する？")
+    existing_users = get_existing_users()
+
+    if existing_users and not st.session_state.show_new_user_form:
+        st.write("つかう なまえ を えらんでね！")
+        
+        # ユーザー選択ボタンを表示
+        for idx, u in enumerate(existing_users):
+            u_id = u["user_id"]
+            u_name = u["display_name"]
+            
+            c1, c2 = st.columns([0.8, 0.2])
+            with c1:
+                if st.button(f"👤 {u_name}", key=f"user_select_btn_{u_id}", use_container_width=True):
+                    set_active_user(u_id)
+                    st.rerun()
+            with c2:
+                if st.button("🗑️", key=f"delete_btn_{u_id}", help="削除"):
+                    st.session_state[f"confirm_delete_{u_id}"] = True
+            
+            if st.session_state.get(f"confirm_delete_{u_id}"):
+                st.warning(f"{u_name} を削除しますか？（バックアップは作成されます）")
+                col_y, col_n = st.columns(2)
+                if col_y.button("はい", key=f"yes_delete_{u_id}"):
+                    delete_user_data(u_id)
+                    st.session_state[f"confirm_delete_{u_id}"] = False
+                    st.rerun()
+                if col_n.button("いいえ", key=f"no_delete_{u_id}"):
+                    st.session_state[f"confirm_delete_{u_id}"] = False
+                    st.rerun()
+
+        st.markdown("---")
+        if st.button("➕ 新しいユーザー", key="btn_toggle_new_user", use_container_width=True):
+            st.session_state.show_new_user_form = True
+            st.rerun()
+
+    else:
+        st.subheader("新しいユーザーの登録")
+        st.markdown("名前を入力してください")
+        new_name_input = st.text_input("名前：", key="input_new_username_val")
+        
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("はじめる", key="btn_create_and_start", use_container_width=True):
+                clean_name = new_name_input.strip()
+                if not clean_name:
+                    st.warning("名前を入力してください。")
+                else:
+                    new_id = str(uuid.uuid4())
+                    create_user_profile(new_id, clean_name)
+                    
+                    st.session_state.show_new_user_form = False
+                    set_active_user(new_id)
+                    st.rerun()
+        with c2:
+            if existing_users:
+                if st.button("戻る", key="btn_cancel_new_user", use_container_width=True):
+                    st.session_state.show_new_user_form = False
+                    st.rerun()
+
     st.stop()
+
+
+
 
 
 
@@ -233,11 +532,11 @@ def default_player_data():
     }
 
 
-def load_player_data():
+def load_player_data(user_id: str | None = None):
     """プレイヤーデータを読み込む。存在しない場合は初期値を生成（必ずLv.1）。"""
     default = default_player_data()
-    username = st.session_state.get("current_user", "default_user")
-    player_file = get_user_player_data_file(username)
+    target_id = user_id or st.session_state.get("current_user_id", "default_user")
+    player_file = get_user_player_data_file(target_id)
     
     if not player_file.exists():
         return default
@@ -245,6 +544,7 @@ def load_player_data():
     try:
         with player_file.open(encoding="utf-8") as f:
             data = json.load(f)
+            # 欠けているキーがあればデフォルト値で埋める
             for key, value in default.items():
                 if key not in data:
                     data[key] = value
@@ -253,11 +553,17 @@ def load_player_data():
         return default
 
 
-def save_player_data():
-    username = st.session_state.get("current_user", "default_user")
-    player_file = get_user_player_data_file(username)
+def save_player_data(user_id: str | None = None, player_data: dict | None = None):
+    """プレイヤーデータを保存する。"""
+    target_id = user_id or st.session_state.get("current_user_id", "default_user")
+    data_to_save = player_data if player_data is not None else st.session_state.get("player_data")
+    
+    if data_to_save is None:
+        return
+        
+    player_file = get_user_player_data_file(target_id)
     with player_file.open("w", encoding="utf-8") as f:
-        json.dump(st.session_state.player_data, f, ensure_ascii=False, indent=2)
+        json.dump(data_to_save, f, ensure_ascii=False, indent=2)
 
 
 def add_player_exp_and_coin(exp_gain: int, coin_gain: int):
@@ -338,9 +644,10 @@ def check_mission_completion():
     """(互換性のために残す) 今日のミッションが達成されたかチェックする。"""
     pass
 
-def load_history():
-    username = st.session_state.get("current_user", "default_user")
-    history_file = get_user_history_file(username)
+def load_history(user_id: str | None = None):
+    """学習履歴を読み込む。"""
+    target_id = user_id or st.session_state.get("current_user_id", "default_user")
+    history_file = get_user_history_file(target_id)
     if not history_file.exists():
         return default_history()
 
@@ -351,34 +658,40 @@ def load_history():
         return default_history()
 
     base = default_history()
-    base["learned_words"] = list(data.get("learned_words", []))
-    base["not_learned_words"] = list(data.get("not_learned_words", []))
-    base["quiz_correct"] = int(data.get("quiz_correct", 0))
-    base["quiz_total"] = int(data.get("quiz_total", 0))
-    base["last_studied"] = data.get("last_studied")
-    base["word_stats"] = dict(data.get("word_stats", {}))
-    base["study_today_questions"] = int(data.get("study_today_questions", 0))
-    base["study_today_date"] = data.get("study_today_date")
-    base["study_dates"] = list(data.get("study_dates", []))
-    base["study_play_count"] = int(data.get("study_play_count", 0))
+    # 読み込んだデータで上書き
+    for key in base.keys():
+        if key in data:
+            if key in ["learned_words", "not_learned_words", "study_dates"]:
+                base[key] = list(data[key])
+            elif key == "word_stats":
+                base[key] = dict(data[key])
+            else:
+                base[key] = data[key]
     return base
 
 
-def save_history():
-    username = st.session_state.get("current_user", "default_user")
-    history_file = get_user_history_file(username)
-    history = {
-        "learned_words": sorted(st.session_state.learned_words),
-        "not_learned_words": sorted(st.session_state.not_learned_words),
-        "quiz_correct": st.session_state.quiz_correct,
-        "quiz_total": st.session_state.quiz_total,
-        "last_studied": datetime.now().strftime("%Y-%m-%d %H:%M"),
-        "word_stats": st.session_state.word_stats,
-        "study_today_questions": st.session_state.study_today_questions,
-        "study_today_date": st.session_state.study_today_date,
-        "study_dates": st.session_state.study_dates,
-        "study_play_count": st.session_state.study_play_count,
-    }
+def save_history(user_id: str | None = None, history_data: dict | None = None):
+    """学習履歴を保存する。"""
+    target_id = user_id or st.session_state.get("current_user_id", "default_user")
+    history_file = get_user_history_file(target_id)
+    
+    if history_data is not None:
+        history = history_data
+    else:
+        # セッション状態から取得
+        history = {
+            "learned_words": sorted(list(st.session_state.get("learned_words", []))),
+            "not_learned_words": sorted(list(st.session_state.get("not_learned_words", []))),
+            "quiz_correct": st.session_state.get("quiz_correct", 0),
+            "quiz_total": st.session_state.get("quiz_total", 0),
+            "last_studied": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "word_stats": st.session_state.get("word_stats", {}),
+            "study_today_questions": st.session_state.get("study_today_questions", 0),
+            "study_today_date": st.session_state.get("study_today_date"),
+            "study_dates": list(st.session_state.get("study_dates", [])),
+            "study_play_count": st.session_state.get("study_play_count", 0),
+        }
+        
     with history_file.open("w", encoding="utf-8") as file:
         json.dump(history, file, ensure_ascii=False, indent=2)
 
@@ -653,45 +966,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
-# ============================================================
-# ユーザー管理 & 認証・切替
-# ============================================================
-if "current_user" not in st.session_state:
-    existing_users = get_existing_users()
-    if existing_users:
-        st.session_state.current_user = existing_users[0]
-    else:
-        st.session_state.current_user = None
-
-if not st.session_state.current_user:
-    st.title("📚 英検5級 単語帳 - ユーザー登録")
-    
-    existing_users = get_existing_users()
-    if existing_users:
-        st.subheader("登録済みユーザーを選択")
-        selected_user = st.selectbox("ユーザー一覧", existing_users, key="select_existing_user_init")
-        if st.button("このユーザーで開始", use_container_width=True, key="btn_start_existing_init"):
-            st.session_state.current_user = selected_user
-            st.session_state.history_loaded = False
-            st.session_state.pop("player_data", None)
-            st.rerun()
-        st.markdown("---")
-        st.subheader("または新規ユーザー登録")
-
-    st.markdown("### 名前を入力してください")
-    new_name = st.text_input("名前：", key="input_new_username_init")
-    if st.button("開始", use_container_width=True, key="btn_start_new_init"):
-        clean_name = new_name.strip()
-        if clean_name:
-            st.session_state.current_user = clean_name
-            st.session_state.history_loaded = False
-            st.session_state.pop("player_data", None)
-            st.rerun()
-        else:
-            st.warning("有効な名前を入力してください。")
-    st.stop()
 
 
 # ============================================================
@@ -1494,16 +1768,25 @@ def reload_words_from_csv():
 
 
 def speak_word(word):
-    url = f"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q={word}&tl=en"
-    headers = {"User-Agent": "Mozilla/5.0"}
-    try:
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            st.audio(response.content, format="audio/mp3")
-        else:
-            st.error("音声の取得に失敗しました")
-    except Exception:
-        st.error("通信エラーが発生しました")
+    if not word:
+        return
+    safe_word = word.replace('"', '\\"').replace("'", "\\'")
+    speech_html = f"""
+    <script>
+    (() => {{
+        if ('speechSynthesis' in window) {{
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance("{safe_word}");
+            utterance.lang = "en-US";
+            utterance.rate = 1.0;
+            setTimeout(() => {{
+                window.speechSynthesis.speak(utterance);
+            }}, 50);
+        }}
+    }})();
+    </script>
+    """
+    st.components.v1.html(speech_html, height=0, width=0)
 
 
 def get_base64_audio(file_path: Path):
@@ -1799,7 +2082,8 @@ check_badges()
 player = st.session_state.player_data
 
 # ユーザー情報カード & 切替ボタン
-user_display_name = st.session_state.get("current_user", "デフォルト")
+curr_user_id = st.session_state.get("current_user_id")
+user_display_name = get_display_name(curr_user_id) if curr_user_id else "デフォルト"
 summary_data = get_learning_record_summary()
 learned_count = len(st.session_state.learned_words)
 not_learned_count = len(st.session_state.not_learned_words)
@@ -1828,9 +2112,8 @@ st.markdown(
 )
 
 if st.button("🔄 ユーザー切替 / 変更", key="btn_switch_user_main", use_container_width=True):
-    st.session_state.current_user = None
-    st.session_state.history_loaded = False
-    st.session_state.pop("player_data", None)
+    save_last_user_id(None)
+    set_active_user(None)
     st.rerun()
 
 player_label = "👤 プレイヤー"

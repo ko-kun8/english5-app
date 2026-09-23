@@ -1770,23 +1770,16 @@ def reload_words_from_csv():
 def speak_word(word):
     if not word:
         return
-    safe_word = word.replace('"', '\\"').replace("'", "\\'")
-    speech_html = f"""
-    <script>
-    (() => {{
-        if ('speechSynthesis' in window) {{
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance("{safe_word}");
-            utterance.lang = "en-US";
-            utterance.rate = 1.0;
-            setTimeout(() => {{
-                window.speechSynthesis.speak(utterance);
-            }}, 50);
-        }}
-    }})();
-    </script>
-    """
-    st.components.v1.html(speech_html, height=0, width=0)
+    url = f"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q={word}&tl=en"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            st.audio(response.content, format="audio/mp3")
+        else:
+            st.error("音声の取得に失敗しました")
+    except Exception:
+        st.error("通信エラーが発生しました")
 
 
 def get_base64_audio(file_path: Path):
